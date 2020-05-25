@@ -1,0 +1,108 @@
+<script src="train-model.component.ts"></script>
+<div class="uk-container">
+    <div class="uk-card uk-card-body uk-margin-top">
+      <p class="uk-text-right">
+        
+      </p>
+
+      <div class="uk-margin">
+        <div class="uk-text-small uk-margin-bottom">1. Select a bot you want to train.</div>
+            <select class="uk-select" (change)="getBot($event)">
+                <option value="" selected disabled>Select a bot</option>
+                <option *ngFor="let bot of bots" value="{{ bot.id }}">{{ bot.bot_name }}</option>
+            </select>
+        </div>
+
+        <hr>
+
+      <div class="uk-margin">
+        <p class="uk-text-muted"><span uk-icon="icon: settings; ratio: 2"></span></p> 
+        <legend class="uk-legend">Train bot</legend>
+        <div class="uk-flex uk-flex-center">
+          <button [routerLink]="['/create']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: plus-circle; ratio: 1"></span> Create bot</button>
+          <button [routerLink]="['/edit']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: pencil; ratio: 1"></span> Edit bot</button>
+          <button [routerLink]="['/intents']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: check; ratio: 1"></span> Add/Update Intents</button>
+          <button [routerLink]="['/svps']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: tag; ratio: 1"></span> Add/Update SVPs</button>
+      </div>
+      </div>
+
+      <div *ngIf="selectedBot">
+
+      <p class="uk-text-muted">Intent Data for <span class="uk-text-bolder uk-text-success">{{selectedBot.bot_name}}</span></p>
+
+      <div *ngIf="intentsAndUtterances?.length > 0; else noIntentsAndUtterances">
+        <div class="uk-margin">
+           <div class="uk-textarea intentData" style="max-height: 40em; overflow-y: scroll;">
+             <span>[</span>
+            <div *ngFor="let intentAndUtterance of intentsAndUtterances; let last = last">
+              <span>{{ intentAndUtterance.intent_data }}<span *ngIf="!last&&intentsAndUtterances?.length>1">,</span></span><br>
+            </div>
+             <span>]</span>
+           </div>
+         </div>
+
+          <div class="uk-margin">
+            <div class="uk-text-small uk-margin-bottom">2. Feed the intent data to your bot. | 3. Train the classifier model on the intent data.</div>
+             <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom" (click)="feedIntents()" >Feed Intents to bot</button>
+             <button type="submit" class="uk-button uk-button-danger uk-button-small uk-margin-small-bottom uk-margin-left" [disabled]="!canTrainClassifierModel" (click)="trainClassifierModel()"><span uk-icon="play-circle"></span> Train classifier model on intent data</button>
+          </div>
+      </div>
+        <ng-template #noIntentsAndUtterances>
+          <p class="uk-text-danger">Could not find intent data. did you forgot to select an intent ? if no, go right ahead and add some.</p>
+        </ng-template>
+      <hr>
+
+      <div class="uk-margin">
+        <div class="uk-text-small uk-margin-bottom">4. If you have configured slots for your bot, select an intent you want to train an svp model for.</div>
+        <select class="uk-select" (change)="getSelectedIntent($event)">
+          <option value="" selected disabled>Select an intent </option>
+          <option *ngFor="let intent of intents" value="{{ intent }}">{{ intent }}</option>
+        </select>
+      </div>
+
+      <p class="uk-text-muted">SVP Data for <span class="uk-text-bolder uk-text-success">{{selectedBot.bot_name}}</span></p>
+
+        <div *ngIf="botSvps?.length > 0; else noBotSvps">
+        <div class="uk-margin">
+           <div class="uk-textarea svpData" style="max-height: 40em; overflow-y: scroll;">
+             <span>[</span>
+            <div *ngFor="let botSvp of botSvps; let last = last">
+              <span>{{ botSvp.svp_data }}<span *ngIf="!last&&botSvps?.length>1">,</span></span><br>
+            </div>
+             <span>]</span>
+           </div>
+         </div>
+
+          <div class="uk-margin">
+            <div class="uk-text-small uk-margin-bottom">5. Feed the svp data for the selected intent to your bot. | 6. Train an svp model for the selected intent.</div>
+             <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom" (click)="feedSvps()">Feed SVPs to bot</button>
+             <button type="submit" class="uk-button uk-button-danger uk-button-small uk-margin-small-bottom uk-margin-left" [disabled]="!canTrainSvpModel" (click)="trainSvpModel()"><span uk-icon="play-circle"></span> Train an svp model on this svp data</button>
+          </div>
+      </div>
+        <ng-template #noBotSvps>
+          <p class="uk-text-danger">Could not find svp data. did you forgot to select an intent ? if no, go right ahead and add some.</p>
+        </ng-template>
+
+        <hr>
+
+    </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Training status -->
+<div id="training_status_modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <button class="uk-modal-close-outside" type="button" uk-close></button>
+    <p class="uk-text-muted uk-text-bolder">Training Status</p>
+    <div  class="uk-text-center">
+      <div class="uk-margin">
+        <ng-container *ngIf="trainProgress"><span uk-spinner></span>  <span class="uk-text-danger uk-text-bolder uk-margin-left">Training bot... this may take a while.</span></ng-container>
+        <ng-container *ngIf="trainCompleted"><span uk-icon="info"></span><span class="uk-text-success uk-text-bolder uk-margin-left">Training completed.</span></ng-container>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+[
+{"intent":"pay_bill","utterance":"get my comcast bill paid in full"},
+
+{"intent":"pay_bill","utterance":"my cable bill needs paying"},
+
+{"intent":"check_balance","utterance":"toss up the balance"},
+
+{"intent":"check_balance","utterance":"how much dough is there "},
+
+{"intent":"pay_bill","utterance":"i need help paying a bill"},
+
+{"intent":"pay_bill","utterance":"please help me pay my water bill"},
+
+{"intent":"pay_bill","utterance":"i wanna pay a bill"},
+
+{"intent":"transfer_money","utterance":"wire 20 dollars to sarah"},
+
+{"intent":"transfer_money","utterance":"help me make a bank transfer"},
+
+{"intent":"transfer_money","utterance":"i want to move some money to my mom"},
+
+{"intent":"transfer_money","utterance":"i wanna send money to ryan"},
+
+{"intent":"check_balance","utterance":"do i have money"},
+
+{"intent":"check_balance","utterance":"how rich am i"},
+
+{"intent":"check_balance","utterance":"how much is in my 360 account"},
+
+{"intent":"pay_bill","utterance":"i want to pay the water bill"},
+
+{"intent":"pay_bill","utterance":"my bill is due help me pay"},
+
+{"intent":"pay_bill","utterance":"get my elec bill paid"},
+
+{"intent":"transfer_money","utterance":"i wann transfer money"},
+
+{"intent":"check_balance","utterance":"whats in checkings"},
+
+{"intent":"check_balance","utterance":"how much in the savings"},
+
+{"intent":"transfer_money","utterance":"i wanna transfer 6 to suzie"},
+
+{"intent":"transfer_money","utterance":"send some dough"},
+
+{"intent":"transfer_money","utterance":"get 2k to"}
+
+]

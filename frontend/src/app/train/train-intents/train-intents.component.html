@@ -1,0 +1,92 @@
+<script src="../train-model/train-model.component.ts"></script>
+<script src="../../models/intent.model.ts"></script>
+<div class="uk-container">
+    <div class="uk-card uk-card-body uk-margin-top">
+
+        <div class="uk-margin">
+            <div class="uk-text-small uk-margin-bottom">1. Select a bot.</div>
+            <select class="uk-select" (change)="getBot($event)">
+                <option value="" selected disabled>Select a bot</option>
+                <option *ngFor="let bot of bots" value="{{ bot.id }}">{{ bot.bot_name }}</option>
+            </select>
+        </div>
+
+        <div class="uk-margin">
+            <div class="uk-text-small uk-margin-bottom">2. Select an intent you want to add utterances to.</div>
+            <select class="uk-select" (change)="getSelectedIntent($event)">
+              <option value="" selected disabled>Select an intent</option>
+              <option *ngFor="let intent of intents" value="{{ intent }}">{{ intent }}</option>
+            </select>
+          </div>
+
+        <hr>
+
+      <div class="uk-margin">
+        <p class="uk-text-muted"><span uk-icon="icon: check; ratio: 2"></span></p> 
+        <legend class="uk-legend">Create Intents</legend>
+        <div class="uk-flex uk-flex-center">
+            <button [routerLink]="['/create']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: plus-circle; ratio: 1"></span> Create bot</button>
+            <button [routerLink]="['/edit']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: pencil; ratio: 1"></span> Edit bot</button>
+            <button [routerLink]="['/svps']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: tag; ratio: 1"></span> Add/Update SVPs</button>
+            <button [routerLink]="['/train']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: settings; ratio: 1"></span> Train bot</button>
+        </div>
+      </div>
+
+      <div *ngIf="bot">
+
+      <form [formGroup]="createIntentForm" (ngSubmit)="createIntentFormSubmit()">
+        <div class="uk-margin">
+
+            <input class="uk-input" type="number" formControlName="bot_id" readonly hidden>
+            </div>
+
+         <div class="uk-margin">
+            <input onclick="this.select()" class="uk-input" type="text" formControlName="utterance" placeholder="Enter an utterance">
+         </div>
+        <div class="uk-margin">
+            <input class="uk-input" type="text" formControlName="intent_data" hidden>
+         </div>
+        <!-- <div class="uk-margin">
+            <select class="uk-select" formControlName="intent">
+                <option value="" selected disabled>Select an intent</option>
+                <option *ngFor="let intent of intents" value="{{ intent }}">{{ intent }}</option>
+            </select>
+        </div> -->
+              <div class="uk-margin">
+                <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom">Save this intent</button>
+              </div>
+      </form>
+
+        <div *ngIf="intentsAndUtterances?.length>0; else noIntentsAndUtterances">
+            <div class="custom-container uk-padding-small">
+                <table class="uk-table uk-table-justify uk-table-divider">
+                    <thead>
+                        <tr class="uk-sticky">
+                            <th>Utterance</th>
+                            <th>Intent</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let intentAndUtterance of intentsAndUtterances; let i = index">
+                            <td>{{ intentAndUtterance.utterance }}</td>
+                            <td>{{ intentAndUtterance.intent }}</td>
+                            <td>
+                                <button class="uk-button uk-button-small"><span uk-icon="trash" (click)="deleteUtterance(intentAndUtterance.id, i)"></span></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <ng-template #noIntentsAndUtterances>
+          <p class="uk-text-danger">Could not find intent data. did you forgot to select an intent ? if no, go right ahead and add some.</p>
+        </ng-template>
+
+    </div>
+    </div>
+
+
+</div>
