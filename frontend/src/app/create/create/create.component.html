@@ -4,12 +4,9 @@
       <div class="uk-margin">
       <p class="uk-text-muted"><span uk-icon="icon: plus-circle; ratio: 2"></span></p>    
       <legend class="uk-legend"> Create your bot</legend>
-      <div class="uk-flex uk-flex-center">
-        <button [routerLink]="['/edit']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: pencil; ratio: 1"></span> Edit bot</button>
-        <button [routerLink]="['/intents']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: check; ratio: 1"></span> Add/Update bot Intents</button>
-        <button [routerLink]="['/svps']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: tag; ratio: 1"></span> Add/Update bot SVPs</button>
-        <button [routerLink]="['/train']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: settings; ratio: 1"></span> Train bot</button>
-    </div>
+      <!-- <div class="uk-flex uk-flex-center">
+        
+    </div> -->
       </div>
         <form [formGroup]="createBotForm" (ngSubmit)="createBotFormSubmit()">
             <fieldset class="uk-fieldset">
@@ -33,10 +30,6 @@
                 <div class="uk-text-small uk-margin-bottom">What are the slots you wish to capture? (Leave blank for none) e.g. product, price, modifier</div>
                 <input class="uk-input" formControlName="bot_slots" type="text">
               </div>
-
-                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                    <label><input class="uk-checkbox" formControlName="bot_personal" type="checkbox"> This bot is for personal use</label>
-                </div>
 
             </fieldset>
 

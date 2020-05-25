@@ -181,8 +181,11 @@ export class TrainSvpsComponent implements OnInit {
       (res) => {
         // console.log(res);
         this.bots = res;
+        if(res.length > 0) {
         this.successUserMessage = 'Success getting bots';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+        
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -215,8 +218,11 @@ export class TrainSvpsComponent implements OnInit {
           bot_id: this.bot.id
         });
         const botName = this.bot.bot_name;
-        this.successUserMessage = 'Success getting bot: ' + botName;
+        if(res) {
+          this.successUserMessage = 'Success getting bot: ' + botName;
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+        
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -243,10 +249,12 @@ export class TrainSvpsComponent implements OnInit {
         this.botSvps = [];
         this.botSvps = res;
         setTimeout(() => this.parseSvpData(), 5);
+        if(res.length > 0) {
         this.successUserMessage = 'Success getting svps';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
-      (err) => {
+      (err: HttpErrorResponse) => {
         console.log(err);
         this.errorUserMessage = err.error;
         this.toggleUserMessage(this.errorUserMessage, 'danger');
@@ -260,8 +268,10 @@ export class TrainSvpsComponent implements OnInit {
         //  console.log(res);
         this.intentsAndUtterances = [];
         this.intentsAndUtterances = res;
+        if(res.length > 0) {
         this.successUserMessage = 'Success getting intents';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -273,16 +283,18 @@ export class TrainSvpsComponent implements OnInit {
 
   createSvpFormSubmit() {
     const data = this.createSvpForm.getRawValue();
-    console.log(data);
+    // console.log(data);
     if (data.bot_id && data.svp_data) {
       this.trainService.createSvp(data).subscribe(
         (res) => {
-           // console.log(res);
+          //  console.log(res);
           // this.botSvps.unshift(res);
+          if(res) {
           this.getSvps(data.bot_id, this.selectedIntent);
           this.clearAll();
           this.successUserMessage = 'Success creating svp';
-          this.toggleUserMessage(this.successUserMessage, 'success')
+          this.toggleUserMessage(this.successUserMessage, 'success');
+          }
         },
         (err: HttpErrorResponse) => {
           console.log(err);
@@ -300,9 +312,12 @@ export class TrainSvpsComponent implements OnInit {
     this.trainService.deleteSingleSvp(svpId).subscribe(
       (res) => {
         // console.log(res);
+        if(res) {
         this.botSvps.splice(i, 1);
         this.successUserMessage = 'Success deleting svp';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+        
       },
       (err: HttpErrorResponse) => {
         console.log(err);

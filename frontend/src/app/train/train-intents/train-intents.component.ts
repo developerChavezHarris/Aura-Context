@@ -50,13 +50,15 @@ export class TrainIntentsComponent implements OnInit {
     const data = this.createIntentForm.getRawValue();
     data.intent = this.selectedIntent;
     data.intent_data = '{' + '"intent":' + '"' + data.intent + '"' + ',' + '"utterance":' + '"' + data.utterance + '"' + '}';
-    console.log(data.intent_data);
+    // console.log(data.intent_data);
     this.trainService.createIntent(data).subscribe(
       (res) => {
         // console.log(res);
+        if(res) {
         this.intentsAndUtterances.unshift(res);
         this.successUserMessage = 'Success creating intent';
         this.toggleUserMessage(this.successUserMessage, 'success')
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -71,8 +73,11 @@ export class TrainIntentsComponent implements OnInit {
       (res) => {
         // console.log(res);
         this.bots = res;
+        if(res.length > 0) {
         this.successUserMessage = 'Success getting bots';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+        
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -96,8 +101,10 @@ export class TrainIntentsComponent implements OnInit {
         });
         this.botId = botId;
         const botName = this.bot.bot_name
-        this.successUserMessage = 'Success getting bot: ' + botName;
-        this.toggleUserMessage(this.successUserMessage, 'success');
+        if(res.length > 0) {
+          this.successUserMessage = 'Success getting bot: ' + botName;
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -109,7 +116,7 @@ export class TrainIntentsComponent implements OnInit {
 
   getSelectedIntent(event:any) {
     this.selectedIntent = event.target.value;
-    console.log(this.selectedIntent);
+    // console.log(this.selectedIntent);
     this.getIntents(this.botId, this.selectedIntent);
     
   }
@@ -120,10 +127,12 @@ export class TrainIntentsComponent implements OnInit {
         // console.log(res);
         this.intentsAndUtterances = [];
         this.intentsAndUtterances = res;
+        if(res.length > 0) {
         this.successUserMessage = 'Success getting intents';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
-      (err) => {
+      (err: HttpErrorResponse) => {
         console.log(err);
         this.errorUserMessage = err.error;
         this.toggleUserMessage(this.errorUserMessage, 'danger');
@@ -133,10 +142,12 @@ export class TrainIntentsComponent implements OnInit {
   deleteUtterance(intentId, i) {
     this.trainService.deleteSingleUtterance(intentId).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
+        if(res) {
         this.intentsAndUtterances.splice(i, 1);
         this.successUserMessage = 'Success deleting intent';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);

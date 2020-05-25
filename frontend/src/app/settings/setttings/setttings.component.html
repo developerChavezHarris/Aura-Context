@@ -4,19 +4,15 @@
       <div class="uk-margin">
       <p class="uk-text-muted"><span uk-icon="icon: cog; ratio: 2"></span></p>    
       <legend class="uk-legend"> Settings </legend>
-      <div class="uk-flex uk-flex-center">
-        <button [routerLink]="['/edit']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: pencil; ratio: 1"></span> Edit bot</button>
-        <button [routerLink]="['/intents']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: check; ratio: 1"></span> Add/Update bot Intents</button>
-        <button [routerLink]="['/svps']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: tag; ratio: 1"></span> Add/Update bot SVPs</button>
-        <button [routerLink]="['/train']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: settings; ratio: 1"></span> Train bot</button>
-    </div>
+      <!-- <div class="uk-flex uk-flex-center">
+    </div> -->
       </div>
 
       <!-- Change user password -->
 
       <p> Change your password </p>
 
-      <form>
+      <!-- <form> -->
         <fieldset class="uk-fieldset">
 
             <div class="uk-margin">
@@ -25,22 +21,17 @@
             </div>
 
             <div class="uk-margin">
-                <div class="uk-text-small uk-margin-bottom">Enter a new password</div>
+                <div class="uk-text-small uk-margin-bottom">Confirm new password</div>
                 <input class="uk-input" formControlName="bot_name" type="password">
-            </div>
-
-
-            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                <label><input class="uk-checkbox" formControlName="email_notification" type="checkbox"> Send an email notification to my inbox</label>
             </div>
 
 
         </fieldset>
 
         <div class="uk-margin">
-            <button class="uk-button uk-button-secondary uk-button-small">update my account</button>
+            <button class="uk-button uk-button-secondary uk-button-small">Update password</button>
         </div>
-    </form>
+    <!-- </form> -->
 
       <hr>
       <div class="uk-section uk-section-muted">

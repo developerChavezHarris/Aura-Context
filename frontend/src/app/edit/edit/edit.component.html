@@ -13,12 +13,9 @@
     <div class="uk-margin">
         <p class="uk-text-muted"><span uk-icon="icon: pencil; ratio: 2"></span></p>    
         <legend class="uk-legend">Edit your bot</legend> 
-        <div class="uk-flex uk-flex-center">
-            <button [routerLink]="['/create']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: plus-circle; ratio: 1"></span> Create bot</button>
-            <button [routerLink]="['/intents']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: check; ratio: 1"></span> Add/Update bot Intents</button>
-            <button [routerLink]="['/svps']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: tag; ratio: 1"></span> Add/Update bot SVPs</button>
-            <button [routerLink]="['/train']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: settings; ratio: 1"></span> Train bot</button>
-        </div>
+        <!-- <div class="uk-flex uk-flex-center">
+            
+        </div> -->
         </div>  
 
         <div *ngIf="bot">
@@ -49,13 +46,6 @@
                 <input class="uk-input" formControlName="bot_slots" type="text">
               </div>
 
-                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                    <label><input class="uk-checkbox" formControlName="bot_personal" type="checkbox"> This bot is for personal use</label>
-                </div>
-
-
-
-
             </fieldset>
 
             <div class="uk-margin">
@@ -64,8 +54,5 @@
         </form>
         </div>
     </div>
-
-
-
 
 </div>

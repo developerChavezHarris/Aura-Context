@@ -4,5 +4,4 @@ export class Bot {
   botDesc: string;
   botIntents: string;
   botSlots: string;
-  botPersonal: boolean;
 }

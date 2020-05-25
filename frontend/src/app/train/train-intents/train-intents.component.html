@@ -24,12 +24,9 @@
       <div class="uk-margin">
         <p class="uk-text-muted"><span uk-icon="icon: check; ratio: 2"></span></p> 
         <legend class="uk-legend">Create Intents</legend>
-        <div class="uk-flex uk-flex-center">
-            <button [routerLink]="['/create']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: plus-circle; ratio: 1"></span> Create bot</button>
-            <button [routerLink]="['/edit']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: pencil; ratio: 1"></span> Edit bot</button>
-            <button [routerLink]="['/svps']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: tag; ratio: 1"></span> Add/Update SVPs</button>
-            <button [routerLink]="['/train']" class="uk-button uk-button-primary uk-button-small uk-margin-left"><span uk-icon="icon: settings; ratio: 1"></span> Train bot</button>
-        </div>
+        <!-- <div class="uk-flex uk-flex-center">
+            
+        </div> -->
       </div>
 
       <div *ngIf="bot">

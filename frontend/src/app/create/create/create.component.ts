@@ -47,7 +47,6 @@ export class CreateComponent implements OnInit, OnDestroy {
       bot_desc: this.botModel.botDesc,
       bot_intents: this.botModel.botIntents,
       bot_slots: this.botModel.botSlots,
-      bot_personal: this.botModel.botPersonal,
     });
   }
 
@@ -61,8 +60,11 @@ export class CreateComponent implements OnInit, OnDestroy {
 
     this.createService.createBot(data).subscribe(
       (res) => {
-        this.SuccessUserMessage = res;
+        // console.log(res);
+        if(res) {
+        this.SuccessUserMessage = 'Success creating bot: ' + res.bot_name ;
         this.toggleUserMessage(this.SuccessUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);

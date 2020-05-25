@@ -25,6 +25,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 catchError((err: HttpErrorResponse) => {
                   if (err.status === 401) {
                     // Handle 401 error
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('expires_at');
                     this.router.navigate(['login']);
                   } 
                     //   console.log('got a 401')

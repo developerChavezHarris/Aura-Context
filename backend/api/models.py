@@ -8,7 +8,6 @@ class Bot(models.Model):
     bot_desc = models.CharField(max_length=1000)
     bot_intents = models.CharField(max_length=256)
     bot_slots = models.CharField(max_length=500, default='none')
-    bot_personal = models.BooleanField(default=True)
 
     def __str__(self):
         return self.bot_name

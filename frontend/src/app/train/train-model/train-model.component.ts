@@ -43,8 +43,10 @@ export class TrainModelComponent implements OnInit {
         // console.log(res);
         this.bots = res;
         // console.log(this.bots);
-        this.successUserMessage = 'Success getting bots';
-        this.toggleUserMessage(this.successUserMessage, 'success');
+        if(res.length > 0) {
+          this.successUserMessage = 'Success getting bots';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -74,8 +76,10 @@ export class TrainModelComponent implements OnInit {
         // this.getIntents(botId);
         // this.getSvps(botId, this.selectedIntent);
         const botName = this.selectedBot.bot_name;
+        if (res) {
         this.successUserMessage = 'Success getting bot: ' + botName;
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -97,11 +101,13 @@ export class TrainModelComponent implements OnInit {
   getIntents(botId: number, selectedIntent) {
     this.trainService.getAllIntents(botId, selectedIntent).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
         this.intentsAndUtterances = [];
         this.intentsAndUtterances = res;
-        this.successUserMessage = 'Success getting intents';
-        this.toggleUserMessage(this.successUserMessage, 'success');
+        if (res.length > 0) {
+          this.successUserMessage = 'Success getting intents';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -117,8 +123,10 @@ export class TrainModelComponent implements OnInit {
         //  console.log(res);
         this.intentsAndUtterances = [];
         this.intentsAndUtterances = res;
-        this.successUserMessage = 'Success getting intents';
-        this.toggleUserMessage(this.successUserMessage, 'success');
+        if(res.length > 0) {
+          this.successUserMessage = 'Success getting intents';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -134,10 +142,12 @@ export class TrainModelComponent implements OnInit {
         // console.log(res);
         this.botSvps = [];
         this.botSvps = res;
-        this.successUserMessage = 'Success getting svps';
-        this.toggleUserMessage(this.successUserMessage, 'success');
+        if(res.length > 0) {
+          this.successUserMessage = 'Success getting svps';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
       },
-      (err) => {
+      (err: HttpErrorResponse) => {
         console.log(err);
         this.errorUserMessage = err.error;
         this.toggleUserMessage(this.errorUserMessage, 'danger');
@@ -154,9 +164,12 @@ export class TrainModelComponent implements OnInit {
     this.trainService.feedIntents(feedIntentModel).subscribe(
     (res) => {
       // console.log(res);
+      if(res.length > 1) {
       this.successUserMessage = 'Success feeding intents';
       this.toggleUserMessage(this.successUserMessage, 'success');
       this.canTrainClassifierModel = true;
+      }
+      
     },
       (err: HttpErrorResponse) => {
       console.log(err);
@@ -176,9 +189,12 @@ export class TrainModelComponent implements OnInit {
     this.trainService.feedSvps(feedSvpModel).subscribe(
      (res) => {
       //  console.log(res);
-       this.successUserMessage = 'Success feeding svps';
-       this.toggleUserMessage(this.successUserMessage, 'success');
-       this.canTrainSvpModel = true;
+      if(res.length > 1) {
+        this.successUserMessage = 'Success feeding svps';
+        this.toggleUserMessage(this.successUserMessage, 'success');
+        this.canTrainSvpModel = true;
+      }
+      
      },
      (err: HttpErrorResponse) => {
        console.log(err);
@@ -194,10 +210,13 @@ export class TrainModelComponent implements OnInit {
     this.trainService.trainClassifierModel().subscribe(
       (res) => {
         // console.log(res);
-        this.successUserMessage = 'Success training classifier model';
-        this.toggleUserMessage(this.successUserMessage, 'success');
-        this.trainCompleted = true;
-        this.trainProgress = false;
+        if(res.length > 1) {
+          this.successUserMessage = 'Success training classifier model';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+          this.trainCompleted = true;
+          this.trainProgress = false;
+        }
+       
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -215,10 +234,13 @@ export class TrainModelComponent implements OnInit {
     this.trainService.trainSvpModel(this.selectedIntent).subscribe(
       (res) => {
         // console.log(res);
-        this.successUserMessage = 'Success training svp model';
-        this.toggleUserMessage(this.successUserMessage, 'success');
-        this.trainCompleted = true;
-        this.trainProgress = false;
+        if(res.length > 1) {
+          this.successUserMessage = 'Success training svp model';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+          this.trainCompleted = true;
+          this.trainProgress = false;
+        }
+       
       },
       (err: HttpErrorResponse) => {
         console.log(err);

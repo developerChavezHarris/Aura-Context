@@ -43,12 +43,11 @@ export class EditComponent implements OnInit, OnDestroy {
 
   initializeEditBotForm(): void {
     this.editBotForm = this.formBuilder.group({
-      id: [this.botModel.id, Validators.required],
-      bot_name: [this.botModel.botName, Validators.required],
-      bot_desc: [this.botModel.botDesc, Validators.required],
-      bot_intents: [this.botModel.botIntents, Validators.required],
-      bot_slots: [this.botModel.botSlots, Validators.required],
-      bot_personal: [this.botModel.botPersonal, Validators.required]
+      id: this.botModel.id,
+      bot_name: this.botModel.botName,
+      bot_desc: this.botModel.botDesc,
+      bot_intents: this.botModel.botIntents, 
+      bot_slots: this.botModel.botSlots,
     });
 
   }
@@ -58,9 +57,11 @@ export class EditComponent implements OnInit, OnDestroy {
       (res) => {
         // console.log(res);
         this.bots = res;
-        console.log(this.bots)
+        if (res.length > 1) {
         this.successUserMessage = 'Success getting bots';
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+        
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -93,8 +94,10 @@ export class EditComponent implements OnInit, OnDestroy {
           });
         }
         const botName = this.bot.bot_name;
+        if (res.length > 1) {
         this.successUserMessage = 'Success getting bot: ' + botName;
         this.toggleUserMessage(this.successUserMessage, 'success');
+        }
     },
     (err: HttpErrorResponse) => {
         console.log(err);
@@ -110,7 +113,6 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.editService.getSingleBot(this.botIdFromDropDown).subscribe(
     (res) => {
-      // console.log(res);
       this.bot = res;
       this.editBotForm.patchValue({
         id: this.bot.id,
@@ -126,8 +128,10 @@ export class EditComponent implements OnInit, OnDestroy {
         });
       }
       const botName = this.bot.bot_name;
+      if (res.length > 1) {
       this.successUserMessage = 'Success getting bot: ' + botName;
       this.toggleUserMessage(this.successUserMessage, 'success');
+      }
   },
   (err: HttpErrorResponse) => {
       console.log(err);
@@ -144,12 +148,15 @@ export class EditComponent implements OnInit, OnDestroy {
         data.bot_slots = 'none'
       }
 
+      if(this.editBotForm.valid) {
       this.editService.saveBot(data).subscribe(
         (res) => {
           // console.log(res);
           const botName = this.bot.bot_name;
+          if(res) {
           this.successUserMessage = 'Success updating bot: ' + botName;
           this.toggleUserMessage(this.successUserMessage, 'success');
+          }
         },
         (err: HttpErrorResponse) => {
           console.log(err);
@@ -158,6 +165,7 @@ export class EditComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
   }
     toggleUserMessage(notificationMessage, status) {
       uikit.notification(notificationMessage, {pos: 'bottom-right', status: status});

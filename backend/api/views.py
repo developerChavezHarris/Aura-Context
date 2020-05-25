@@ -47,8 +47,11 @@ class CreateBotView(APIView):
             bot_serializer = BotSerializer(data=request.data)
             if bot_serializer.is_valid():
                 bot_serializer.save()
+                latest_bot = Bot.objects.last()
+                bot_serializer = BotSerializer(latest_bot, many=False)
                 user_message = 'Success creating bot'
-                return Response(user_message, status=status.HTTP_201_CREATED)
+                print(user_message)
+                return Response(bot_serializer.data, status=status.HTTP_201_CREATED)
         except:
             user_message = 'Error creating bot'
             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
@@ -300,8 +303,8 @@ class FeedSvpsView(APIView):
 
 
 class TestQueryView(APIView):
-    authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JSONWebTokenAuthentication]
+    # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         try:
             utterance = request.data['query']
