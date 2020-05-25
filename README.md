@@ -1,8 +1,8 @@
-# open-bot3.0 (Aura) Beta Verion 1.0
+(Aura) Beta Verion 1.0
 
 ## Introduction
 
-The open-bot (Aura) platform allows a developer to build and test custom chatbots, using Advanced AI Technology and Machine Learning, The bot you build and train is able determine the intention of a user and automatically extract keywords for further processing. It is up to the developer to use the response data returned from the bot and perform other custom logic like database lookups and making further API calls.
+The Aura platform allows a developer to build and test custom chatbots, using Advanced AI Technology and Machine Learning, The bot you build and train is able determine the intention of a user and automatically extract keywords for further processing. It is up to the developer to use the response data returned from the bot and perform other custom logic like database lookups and making further API calls.
 
 ## Demo Video
 
@@ -20,14 +20,14 @@ https://pypi.org/project/virtualenv/
 npm: Install from https://www.npmjs.com/get-npm
 
 #### 3. Once Installed, Create the virtual environment using the following command:
-virtualenv openbot3.0  
+virtualenv venv  
 
 #### 4. Activate the newly created virtual environment using the following command:
 Mac:
-source openbot2.0/bin/activate
+source venv/bin/activate
 ######
 Windows:
-openbot3.0\Scripts\activate
+venv\Scripts\activate
 
 #### 5. Once the virtual environment is activated, run the following command:
 ##### IMPORTANT: Make sure you are in the cloned repo folder.
