@@ -1,22 +1,8 @@
 [
-["wire 20 dollars to sarah",{"entities":[[19,24,"bill_name"],[5,7,"bill_name"]]}],
+["you are helpful",{"entities":[[8,15,"compliment"]]}],
 
-["can we send 60 to maxie",{"entities":[[18,23,"dest_acc"]]}],
+["you are one of a kind",{"entities":[[8,21,"compliment"]]}],
 
-["i want to move some money to my mom",{"entities":[[32,35,"dest_acc"]]}],
-
-["wire 20 dollars to sarah",{"entities":[[19,24,"dest_acc"]]}],
-
-["i wanna send money to ryan",{"entities":[[22,26,"dest_acc"]]}],
-
-["i want to move some money to my mom",{"entities":[[32,35,"dest_acc"]]}],
-
-["wire 20 dollars to sarah",{"entities":[[19,24,"dest_acc"]]}],
-
-["i wann transfer money",{"entities":[[16,21,"account"]]}],
-
-["I wanna wire from my savings to josh",{"entities":[[32,36,"dest_acc"],[21,28,"source_acc"]]}],
-
-["i wanna transfer 6 to suzie",{"entities":[[22,27,"dest_acc"]]}]
+["very kind bot",{"entities":[[0,9,"compliment"]]}]
 
 ]

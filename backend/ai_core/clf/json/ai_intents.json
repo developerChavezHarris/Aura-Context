@@ -1,10 +1,16 @@
 [
-{"intent":"dd","utterance":"where is the money?"},
+{"intent":"compliment","utterance":"very kind bot"},
 
-{"intent":"dd","utterance":"hello"},
+{"intent":"compliment","utterance":"you are one of a kind"},
 
-{"intent":"dd","utterance":"hello"},
+{"intent":"compliment","utterance":"you are helpful"},
 
-{"intent":"dd","utterance":"test"}
+{"intent":"say_hello","utterance":"how are you"},
+
+{"intent":"say_hello","utterance":"whats up"},
+
+{"intent":"say_hello","utterance":"hi"},
+
+{"intent":"say_hello","utterance":"hey"}
 
 ]
