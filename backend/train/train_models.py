@@ -22,13 +22,16 @@ from ai_core import config
 
 # Model Specific
 base_dir = config.base_dir
+# Rename the below to clf_dir
 clf_model_dir = config.clf_model_dir
-clf_model_json_file = config.clf_model_json_file
+clf_models_dir = config.clf_models_dir
+clf_model_root_intents_json_file = config.clf_model_root_intents_json_file
+update_clf_model_dir = config.update_clf_model_dir
 svp_model_dir_core = config.svp_model_dir_core
 svp_model_dir = config.svp_model_dir
 svp_model_json_file = config.svp_model_json_file
-clf_model_vectorizer = config.clf_model_vectorizer
-clf_model = config.clf_model
+root_clf_model_vectorizer = config.root_clf_model_vectorizer
+root_clf_model = config.root_clf_model
 
 
 class TrainSvpModel:
@@ -116,12 +119,47 @@ class TrainSvpModel:
 
 
 class TrainClassifierModel:
-    def __init__(self):
+    def __init__(self, selected_update_intent):
         self.self = self
-
+        self.selected_update_intent = selected_update_intent
     def train_classifier_model(self):
-        try:
-            df = pd.read_json(clf_model_json_file)
+        # try:
+        if self.selected_update_intent == 'none':
+            df = pd.read_json(clf_model_root_intents_json_file)
+            X_train, X_test, y_train, y_test = train_test_split(df['utterance'], df['intent'], random_state=0)
+
+            count_vect = CountVectorizer()
+            X_train_counts = count_vect.fit_transform(X_train)
+            tfidf_transformer = TfidfTransformer()
+            X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
+
+            model = LinearSVC().fit(X_train_tfidf, y_train)
+
+            # Save the vectorizer
+            # vec_file = 'vectorizer.pickle'
+            pickle.dump(count_vect, open(root_clf_model_vectorizer, 'wb'))
+
+            # Save the model
+            # mod_file = 'classification.model'
+            pickle.dump(model, open(root_clf_model, 'wb'))
+
+            print('------CLASSIFICATION TRAINING COMPLETED------')
+            print("Vectorizer model saved to: ", root_clf_model_vectorizer)
+            print("Classification model saved to: ", root_clf_model)
+            # except:
+            #     user_message = 'Error training classification model'
+            #     print(user_message)
+
+        elif self.selected_update_intent != 'none':
+            path_to_look_for = os.path.join(update_clf_model_dir, self.selected_update_intent)
+
+            update_intents_json_file = self.selected_update_intent+'.json'
+
+            selected_update_intents_json_file = os.path.join(path_to_look_for, update_intents_json_file)
+
+            print(selected_update_intents_json_file)
+           
+            df = pd.read_json(selected_update_intents_json_file)
 
             X_train, X_test, y_train, y_test = train_test_split(df['utterance'], df['intent'], random_state=0)
 
@@ -134,15 +172,18 @@ class TrainClassifierModel:
 
             # Save the vectorizer
             # vec_file = 'vectorizer.pickle'
-            pickle.dump(count_vect, open(clf_model_vectorizer, 'wb'))
+            pickle_file_temp = self.selected_update_intent+'.pickle'
+            pickle_file = os.path.join(path_to_look_for, pickle_file_temp)
+            pickle.dump(count_vect, open(pickle_file, 'wb'))
 
             # Save the model
-            # mod_file = 'classification.model'
-            pickle.dump(model, open(clf_model, 'wb'))
+            mod_file = self.selected_update_intent+'.model'
+            model_dump = os.path.join(path_to_look_for, mod_file)
+            pickle.dump(model, open(model_dump, 'wb'))
 
             print('------CLASSIFICATION TRAINING COMPLETED------')
-            print("Vectorizer model saved to: ", clf_model_vectorizer)
-            print("Classification model saved to: ", clf_model_dir)
-        except:
-            user_message = 'Error training classification model'
-            print(user_message)
+            print("Vectorizer model saved to: ", path_to_look_for)
+            print("Classification model saved to: ", path_to_look_for)
+            # except:
+            #     user_message = 'Error training classification model'
+            #     print(user_message)

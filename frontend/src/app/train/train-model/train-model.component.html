@@ -6,12 +6,20 @@
       </p>
 
       <div class="uk-margin">
-        <div class="uk-text-small uk-margin-bottom">1. Select a bot you want to train.</div>
+        <div class="uk-text-small uk-margin-bottom">1. Select a bot you want to train (This gives root intents).</div>
             <select class="uk-select" (change)="getBot($event)">
                 <option value="" selected disabled>Select a bot</option>
                 <option *ngFor="let bot of bots" value="{{ bot.id }}">{{ bot.bot_name }}</option>
             </select>
         </div>
+
+        <div class="uk-margin">
+          <div class="uk-text-small uk-margin-bottom">2. And or Select an update intent to train conversation context.</div>
+              <select class="uk-select" (change)="getSelectedUpdateIntent($event)">
+                  <option value="" selected disabled>Select an update intent</option>
+                  <option *ngFor="let update_intent of update_intents" value="{{ update_intent }}">{{ update_intent }}</option>
+              </select>
+          </div>
 
         <hr>
 
@@ -31,6 +39,7 @@
         <div class="uk-margin">
            <div class="uk-textarea intentData" style="max-height: 40em; overflow-y: scroll;">
              <span>[</span>
+             <p>&#123;"intent":"none","utterance":"none"&#125;,</p>
             <div *ngFor="let intentAndUtterance of intentsAndUtterances; let last = last">
               <span>{{ intentAndUtterance.intent_data }}<span *ngIf="!last&&intentsAndUtterances?.length>1">,</span></span><br>
             </div>

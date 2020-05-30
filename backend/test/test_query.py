@@ -15,15 +15,28 @@ from ai_core import config
 # Model Specific
 base_dir = config.base_dir
 clf_model_dir = config.clf_model_dir
-clf_model_json_file = config.clf_model_json_file
-clf_model_vectorizer = config.clf_model_vectorizer
-clf_model = config.clf_model
+clf_model_root_intents_json_file = config.clf_model_root_intents_json_file
+root_clf_model_vectorizer = config.root_clf_model_vectorizer
+root_clf_model = config.root_clf_model
+update_clf_model_dir = config.update_clf_model_dir
 svp_model_dir = config.svp_model_dir
 svp_model_dir_core = config.svp_model_dir_core
 svp_model_json_file = config.svp_model_json_file
 
 wipe_clf_model_path = config.wipe_clf_model_path
 wipe_svp_model_path = config.wipe_svp_model_path
+
+last_intent = ''
+
+def update_last_intent(new_value):
+    global last_intent
+    last_intent = new_value
+    return last_intent
+
+def get_last_intent():
+    global last_intent
+    return last_intent
+
 
 
 class TestQuery:
@@ -46,8 +59,52 @@ class TestQuery:
 
         utterance = ''.join(utterance)
 
+        # get last intent
+        the_last_intent = get_last_intent()
+        print(the_last_intent, '<<< Last Intent')
+
+        # based on the previous intent, we determine how we classify the next
+
+        # check if there is an update classification for the previous intent
+
+
+
         # Classify utterance
-        intent = Classification(utterance, clf_model_vectorizer, clf_model).classify_intent()
+
+        update_intent_looks_like = the_last_intent+'_update'
+
+        # check if a clf model exists in update_intents dircetory
+
+        path_to_look_for = os.path.join(update_clf_model_dir, update_intent_looks_like)
+
+        if os.path.exists(path_to_look_for):
+            update_intent_vectorizer = os.path.join(path_to_look_for, update_intent_looks_like+'.pickle') 
+            update_intent_model = os.path.join(path_to_look_for, update_intent_looks_like+'.model')
+            intent = Classification(utterance, update_intent_vectorizer, update_intent_model).classify_intent()
+
+        elif 'update' in the_last_intent:
+            update_path_to_look_for = os.path.join(update_clf_model_dir, the_last_intent)
+            if os.path.exists(update_path_to_look_for):
+                try:
+                    update_intent_vectorizer = os.path.join(update_path_to_look_for, the_last_intent+'.pickle') 
+                    update_intent_model = os.path.join(update_path_to_look_for, the_last_intent+'.model')
+                    intent = Classification(utterance, update_intent_vectorizer, update_intent_model).classify_intent()
+                except:
+                    intent = Classification(utterance, root_clf_model_vectorizer, root_clf_model).classify_intent()
+
+
+
+        else:
+            intent = Classification(utterance, root_clf_model_vectorizer, root_clf_model).classify_intent()
+
+        
+
+        print(intent, '<<< Current Intent')
+        if intent == 'none':
+            intent = Classification(utterance, root_clf_model_vectorizer, root_clf_model).classify_intent()
+
+        if intent == 'start_over':
+            intent = Classification(utterance, root_clf_model_vectorizer, root_clf_model).classify_intent()
 
         #  Remove repeated characters
         utterance = (RemoveRepeatedChars(utterance).remove_repeated_chars())
@@ -81,6 +138,13 @@ class TestQuery:
                     "intent": intent,
                     "slots": svps,
                 }
+                context = Context(response).get_context()
+                if len(context) > 0:
+                    temp_last_intent = str(context[0]['intent'])
+                    update_last_intent(temp_last_intent)
+
+                else:
+                    pass
         else:
             response = {
             "time_stamp": time_stamp,
@@ -89,12 +153,15 @@ class TestQuery:
             "intent": intent,
             "slots": []
         }
+            context = Context(response).get_context()
+            if len(context) > 0:
+                    temp_last_intent = str(context[0]['intent'])
+                    update_last_intent(temp_last_intent)
+            else:
+                pass  
+
+
         print(response)
-
-        context = Context(response).get_context()
-
-        print('Here is my context')
-        print(context)  
 
         return response   
             

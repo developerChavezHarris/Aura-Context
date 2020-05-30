@@ -1,11 +1,8 @@
 context = []
 
-
-
 class Context:
     def __init__(self, utterance):
         self.utterance = utterance
-
 
     def get_context(self):
         global context

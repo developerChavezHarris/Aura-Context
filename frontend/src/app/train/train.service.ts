@@ -40,6 +40,13 @@ export class TrainService {
     );
   }
 
+  getSelectedUpdateIntents(botId: number, selectedIntent) {
+    console.log(selectedIntent);
+    return this.http.post<any>(
+      this.baseUrl + '/intent/get_update_intents', {botId, selectedIntent}
+    );
+  }
+
   getAllTrainingIntents(botId: number) {
     return this.http.post<any>(
       this.baseUrl + '/intent/get_training_intents', botId
@@ -60,9 +67,9 @@ export class TrainService {
       this.baseUrl + '/svp/delete_svp', svpId
     );
   }
-  feedIntents(intentData: any) {
+  feedIntents(intentData: any, selectedUpdateIntent) {
     return this.http.post<any>(
-      this.baseUrl + '/intent/feed_intents', intentData
+      this.baseUrl + '/intent/feed_intents', {intentData, selectedUpdateIntent}
     );
   }
   feedSvps(svpData: any) {
@@ -70,9 +77,9 @@ export class TrainService {
       this.baseUrl + '/svp/feed_svps', svpData
     );
   }
-  trainClassifierModel() {
+  trainClassifierModel(selectedUpdateIntent) {
     return this.http.post<any>(
-      this.baseUrl + '/model/train_classifier_model', this.options
+      this.baseUrl + '/model/train_classifier_model', {selectedUpdateIntent}, this.options
     );
   }
   trainSvpModel(selectedIntent) {

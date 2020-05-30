@@ -29,7 +29,9 @@ urlpatterns = [
     path('train_svp_model', TrainSvpModelView.as_view()),
     path('get_training_intents', GetTrainingIntentsView.as_view()),
 
+    path('get_update_intents', GetUpdateIntentsView.as_view()),
+
     # Danger paths
-    path('wipe_and_reset_models', WipeAndResetModelsView.as_view()),
+    # path('wipe_and_reset_models', WipeAndResetModelsView.as_view()),
 
 ]

@@ -1,0 +1,9 @@
+[
+
+{"intent":"none","utterance":"none"},
+
+{"intent":"check_balance_update","utterance":"and in my zen account"},
+
+{"intent":"check_balance_update","utterance":"what about my checkings account"}
+
+]

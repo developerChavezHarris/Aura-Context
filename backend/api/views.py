@@ -1,3 +1,6 @@
+import os
+import shutil
+
 # rest_framework resources
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -27,11 +30,13 @@ from ai_core import config
 
 # Model Specific
 base_dir = config.base_dir
-clf_model_dir = config.clf_model_dir
-clf_model_json_file = config.clf_model_json_file
+root_clf_model_dir = config.clf_model_dir
+clf_model_root_intents_json_file = config.clf_model_root_intents_json_file
 svp_model_dir = config.svp_model_dir
 svp_model_dir_core = config.svp_model_dir_core
 svp_model_json_file = config.svp_model_json_file
+
+update_clf_model_dir = config.update_clf_model_dir
 
 wipe_clf_model_path = config.wipe_clf_model_path
 wipe_svp_model_path = config.wipe_svp_model_path
@@ -179,7 +184,25 @@ class GetTrainingIntentsView(APIView):
         try:
             bot_id = request.data
             bot = Bot.objects.get(id=bot_id)
-            intents = Intent.objects.filter(bot=bot).order_by('-id')
+            intents = Intent.objects.filter(bot=bot).order_by('-id').exclude(intent__contains="update")
+            # .exclude(intent__contains="update")
+            intent_serializer = IntentSerializer(intents, many=True)
+            user_message = 'Success getting intents'
+            print(user_message)
+            return Response(intent_serializer.data, status=status.HTTP_200_OK)
+        except:
+            user_message = 'Error getting intents'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+
+class GetUpdateIntentsView(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        try:
+            bot_id = request.data['botId']
+            selected_intent = request.data['selectedIntent']
+            bot = Bot.objects.get(id=bot_id)
+            intents = Intent.objects.filter(bot=bot, intent=selected_intent).order_by('-id')
             intent_serializer = IntentSerializer(intents, many=True)
             user_message = 'Success getting intents'
             print(user_message)
@@ -207,19 +230,45 @@ class DeleteSingleIntentView(APIView):
 
 
 class FeedIntentsView(APIView):
-    authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JSONWebTokenAuthentication]
+    # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
-        try:
-            intent_data = request.data['intentData']
-            with open(clf_model_json_file, 'w') as f:
+        # try:
+        selected_update_intent = request.data['selectedUpdateIntent']
+        intent_data = request.data['intentData']
+        intent_data = intent_data['intentData']
+        
+        
+        
+        if selected_update_intent != 'none':
+            dir_to_create = selected_update_intent
+            parent_dir = update_clf_model_dir
+            path = os.path.join(parent_dir, dir_to_create)
+            print(path)
+            update_intents_json_file = selected_update_intent+'.json'
+            clf_model_update_intents_json_file = os.path.join(path, update_intents_json_file)
+            if not os.path.exists(path):
+                os.mkdir(path)
+                with open(clf_model_update_intents_json_file, 'w') as f:
+                    f.write(intent_data)
+            else:
+                shutil.rmtree(path)
+                os.mkdir(path)
+                with open(clf_model_update_intents_json_file, 'w') as f:
+                    f.write(intent_data)
+
+        else: 
+            with open(clf_model_root_intents_json_file, 'w') as f:
                 f.write(intent_data)
-            user_message = 'Success feeding intents'
-            print(user_message)
-            return Response(user_message, status=status.HTTP_202_ACCEPTED)
-        except:
-            user_message = 'Error feeding intents'
-            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+
+        print(selected_update_intent)
+        
+        user_message = 'Success feeding intents'
+        print(user_message)
+        return Response(user_message, status=status.HTTP_202_ACCEPTED)
+        # except:
+        #     user_message = 'Error feeding intents'
+        #     return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
 # SVPs
 
@@ -316,11 +365,12 @@ class TestQueryView(APIView):
 
 
 class TrainClassifierModelView(APIView):
-    authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JSONWebTokenAuthentication]
+    # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         # try:
-        TrainClassifierModel().train_classifier_model()
+        selected_update_intent = request.data['selectedUpdateIntent']
+        TrainClassifierModel(selected_update_intent).train_classifier_model()
         user_message = 'Success training classifier model'
         return Response(user_message, status=status.HTTP_200_OK)
         # except:
@@ -340,16 +390,16 @@ class TrainSvpModelView(APIView):
             user_message = 'Error training bot'
             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
-class WipeAndResetModelsView(APIView):
-    authentication_classes = [JSONWebTokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    def post(self, request, *args, **kwargs):
-        try:
-            WipeReset.wipe_clf_model(self)
-            WipeReset.wipe_svp_model(self)
+# class WipeAndResetModelsView(APIView):
+#     authentication_classes = [JSONWebTokenAuthentication]
+#     permission_classes = [IsAuthenticated]
+#     def post(self, request, *args, **kwargs):
+#         try:
+#             WipeReset.wipe_clf_model(self)
+#             WipeReset.wipe_svp_model(self)
             
-            user_message = 'Success wiping and resetting models'
-            return Response(user_message, status=status.HTTP_200_OK)
-        except:
-            user_message = 'Error wiping and resetting models'
-            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+#             user_message = 'Success wiping and resetting models'
+#             return Response(user_message, status=status.HTTP_200_OK)
+#         except:
+#             user_message = 'Error wiping and resetting models'
+#             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)

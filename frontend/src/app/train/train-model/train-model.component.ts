@@ -15,6 +15,8 @@ export class TrainModelComponent implements OnInit {
   private bots: any;
   private botId: any;
   private intents: any;
+  private update_intents: any;
+  private selectedUpdateIntent: string;
   private selectedBot: any;
   private intentsAndUtterances: any;
   private botSvps: any;
@@ -73,6 +75,8 @@ export class TrainModelComponent implements OnInit {
         }
         this.string = this.selectedBot.bot_intents.replace(/\s/g, '');
         this.intents = this.string.split(',');
+        this.update_intents = this.intents.filter(s => s.includes('update'));
+        console.log('Update Intents', this.update_intents);
         // this.getIntents(botId);
         // this.getSvps(botId, this.selectedIntent);
         const botName = this.selectedBot.bot_name;
@@ -95,6 +99,26 @@ export class TrainModelComponent implements OnInit {
     this.botSvps = [];
     this.getSvps(this.botId, this.selectedIntent);
     }
+  }
+
+  getSelectedUpdateIntent(event: any) {
+    this.selectedIntent = event.target.value;
+    this.trainService.getSelectedUpdateIntents(this.botId, this.selectedIntent).subscribe(
+      (res) => {
+        //  console.log(res);
+        this.intentsAndUtterances = [];
+        this.intentsAndUtterances = res;
+        if(res.length > 0) {
+          this.successUserMessage = 'Success getting intents';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.errorUserMessage = err.error;
+        this.toggleUserMessage(this.errorUserMessage, 'danger');
+      }
+    );
   }
 
 
@@ -160,8 +184,13 @@ export class TrainModelComponent implements OnInit {
     this.trainProgress = false;
     const feedIntentModel = new FeedIntentsModel();
     const intentData: string = this.elemRef.nativeElement.querySelectorAll('.intentData')[0].innerText;
+    if(this.selectedIntent) {
+      this.selectedUpdateIntent = this.selectedIntent;
+    } else {
+      this.selectedUpdateIntent = 'none';
+    }
     feedIntentModel.intentData = intentData;
-    this.trainService.feedIntents(feedIntentModel).subscribe(
+    this.trainService.feedIntents(feedIntentModel, this.selectedUpdateIntent).subscribe(
     (res) => {
       // console.log(res);
       if(res.length > 1) {
@@ -207,7 +236,12 @@ export class TrainModelComponent implements OnInit {
   trainClassifierModel() {
     this.canTrainClassifierModel = false;
     this.show_training_status_model();
-    this.trainService.trainClassifierModel().subscribe(
+    if(this.selectedIntent) {
+      this.selectedUpdateIntent = this.selectedIntent;
+    } else {
+      this.selectedUpdateIntent = 'none';
+    }
+    this.trainService.trainClassifierModel(this.selectedUpdateIntent).subscribe(
       (res) => {
         // console.log(res);
         if(res.length > 1) {

@@ -1,0 +1,29 @@
+[
+
+{"intent":"none","utterance":"none"},
+
+{"intent":"start_over","utterance":"reset"},
+
+{"intent":"start_over","utterance":"stop"},
+
+{"intent":"start_over","utterance":"nevermind"},
+
+{"intent":"start_over","utterance":"cancel"},
+
+{"intent":"start_over","utterance":"start over"},
+
+{"intent":"transfer_money","utterance":"I want to transfer money to mike"},
+
+{"intent":"good_bye","utterance":"good_bye"},
+
+{"intent":"good_bye","utterance":"bye"},
+
+{"intent":"hello","utterance":"hello"},
+
+{"intent":"hello","utterance":"hi"},
+
+{"intent":"check_balance","utterance":"how much is in my zen account"},
+
+{"intent":"check_balance","utterance":"how much is in my savings account"}
+
+]
