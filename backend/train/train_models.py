@@ -27,6 +27,7 @@ clf_model_dir = config.clf_model_dir
 clf_models_dir = config.clf_models_dir
 clf_model_root_intents_json_file = config.clf_model_root_intents_json_file
 update_clf_model_dir = config.update_clf_model_dir
+update_sense_clf_model_dir = config.update_sense_clf_model_dir
 svp_model_dir_core = config.svp_model_dir_core
 svp_model_dir = config.svp_model_dir
 svp_model_json_file = config.svp_model_json_file
@@ -151,16 +152,21 @@ class TrainClassifierModel:
             #     print(user_message)
 
         elif self.selected_update_intent != 'none':
-            path_to_look_for = os.path.join(update_clf_model_dir, self.selected_update_intent)
+            pass
 
-            update_intents_json_file = self.selected_update_intent+'.json'
+class TrainUpdateSenseClassifierModel:
+    def __init__(self):
+        self.self = self
+    def train_update_sense_classifier_model(self):
+        # try:
+        update_sense_json_file = 'update_sense.json'
+        path_to_look_for = os.path.join(update_sense_clf_model_dir)
+        if os.path.exists(path_to_look_for):
+            update_sense_json_file = os.path.join(update_sense_clf_model_dir, 'update_sense.json') 
+            update_sense_clf_model = os.path.join(update_sense_clf_model_dir, 'update_sense.model')
+            update_sense_clf_vectorizer = os.path.join(update_sense_clf_model_dir, 'update_sense.pickle')
 
-            selected_update_intents_json_file = os.path.join(path_to_look_for, update_intents_json_file)
-
-            print(selected_update_intents_json_file)
-           
-            df = pd.read_json(selected_update_intents_json_file)
-
+            df = pd.read_json(update_sense_json_file)
             X_train, X_test, y_train, y_test = train_test_split(df['utterance'], df['intent'], random_state=0)
 
             count_vect = CountVectorizer()
@@ -172,18 +178,15 @@ class TrainClassifierModel:
 
             # Save the vectorizer
             # vec_file = 'vectorizer.pickle'
-            pickle_file_temp = self.selected_update_intent+'.pickle'
-            pickle_file = os.path.join(path_to_look_for, pickle_file_temp)
-            pickle.dump(count_vect, open(pickle_file, 'wb'))
+            pickle.dump(count_vect, open(update_sense_clf_vectorizer, 'wb'))
 
             # Save the model
-            mod_file = self.selected_update_intent+'.model'
-            model_dump = os.path.join(path_to_look_for, mod_file)
-            pickle.dump(model, open(model_dump, 'wb'))
+            # mod_file = 'classification.model'
+            pickle.dump(model, open(update_sense_clf_model, 'wb'))
 
-            print('------CLASSIFICATION TRAINING COMPLETED------')
-            print("Vectorizer model saved to: ", path_to_look_for)
-            print("Classification model saved to: ", path_to_look_for)
+            print('------UPDATE SENSE CLASSIFICATION TRAINING COMPLETED------')
+            print("Vectorizer model saved to: ", update_sense_clf_model_dir)
+            print("Classification model saved to: ", update_sense_clf_model_dir)
             # except:
             #     user_message = 'Error training classification model'
             #     print(user_message)

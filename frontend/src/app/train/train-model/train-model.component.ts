@@ -19,6 +19,7 @@ export class TrainModelComponent implements OnInit {
   private selectedUpdateIntent: string;
   private selectedBot: any;
   private intentsAndUtterances: any;
+  private updateSenseData: any;
   private botSvps: any;
   private selectedIntent: any;
   private string;
@@ -103,11 +104,31 @@ export class TrainModelComponent implements OnInit {
 
   getSelectedUpdateIntent(event: any) {
     this.selectedIntent = event.target.value;
+    this.getUpdateSenseData(this.botId);
     this.trainService.getSelectedUpdateIntents(this.botId, this.selectedIntent).subscribe(
       (res) => {
         //  console.log(res);
         this.intentsAndUtterances = [];
         this.intentsAndUtterances = res;
+        if(res.length > 0) {
+          this.successUserMessage = 'Success getting intents';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.errorUserMessage = err.error;
+        this.toggleUserMessage(this.errorUserMessage, 'danger');
+      }
+    );
+  }
+
+  getUpdateSenseData(botId: number) {
+    this.trainService.getUpdateSenseData(botId).subscribe(
+      (res) => {
+         console.log(res);
+        this.updateSenseData = [];
+        this.updateSenseData = res;
         if(res.length > 0) {
           this.successUserMessage = 'Success getting intents';
           this.toggleUserMessage(this.successUserMessage, 'success');
@@ -208,6 +229,31 @@ export class TrainModelComponent implements OnInit {
       );
   }
 
+  feedUpdateSense() {
+    this.trainCompleted = false;
+    this.trainProgress = false;
+    const feedIntentModel = new FeedIntentsModel();
+    const updateSenseData: string = this.elemRef.nativeElement.querySelectorAll('.UpdateSenseData')[0].innerText;
+    console.log(updateSenseData)
+    feedIntentModel.intentData = updateSenseData;
+    this.trainService.feedUpdateSense(feedIntentModel).subscribe(
+    (res) => {
+      // console.log(res);
+      if(res.length > 1) {
+      this.successUserMessage = 'Success feeding Sense Data';
+      this.toggleUserMessage(this.successUserMessage, 'success');
+      // this.canTrainClassifierModel = true;
+      }
+      
+    },
+      (err: HttpErrorResponse) => {
+      console.log(err);
+      this.errorUserMessage = err.error;
+      this.toggleUserMessage(this.errorUserMessage, 'danger');
+      }
+      );
+  }
+
  feedSvps() {
     this.trainCompleted = false;
     this.trainProgress = false;
@@ -260,6 +306,30 @@ export class TrainModelComponent implements OnInit {
     );
   }
 
+  trainUpdateSenseClassifierModel() {
+
+    this.show_training_status_model();
+
+    this.trainService.trainUpdateSenseClassifierModel().subscribe(
+      (res) => {
+        // console.log(res);
+        if(res.length > 1) {
+          this.successUserMessage = 'Success training update sense classifier model';
+          this.toggleUserMessage(this.successUserMessage, 'success');
+          this.trainCompleted = true;
+          this.trainProgress = false;
+        }
+       
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.errorUserMessage = err.error;
+        this.toggleUserMessage(this.errorUserMessage, 'danger');
+      }
+    );
+
+  }
+
     trainSvpModel() {
     this.canTrainSvpModel = false;
     this.trainCompleted = false;
@@ -282,6 +352,16 @@ export class TrainModelComponent implements OnInit {
         this.toggleUserMessage(this.errorUserMessage, 'danger');
       }
     );
+  }
+
+  importJson(event, dom_element) {
+    const file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      console.log(fileReader.result);
+      this.elemRef.nativeElement.querySelectorAll(dom_element)[0].innerText = fileReader.result;
+    }
+    fileReader.readAsText(file);
   }
 
   toggleUserMessage(notificationMessage, status) {

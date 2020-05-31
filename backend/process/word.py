@@ -61,8 +61,8 @@ class Svps:
             # ner_list.append(ent.label_ + ' : ' + ent.text)
             if ent.label_ and ent.text:
                 ner_list.append({
-                    "slot": ent.label_.upper(),
-                    "value": ent.text.upper()
+                    "slot": ent.label_,
+                    "value": ent.text
                 })
             else:
                 pass

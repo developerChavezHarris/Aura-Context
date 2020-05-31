@@ -1,5 +1,6 @@
 import os
 import shutil
+import json
 
 # rest_framework resources
 from rest_framework.response import Response
@@ -24,6 +25,7 @@ from .models import Bot
 from test.test_query import TestQuery
 from train.train_models import TrainClassifierModel
 from train.train_models import TrainSvpModel
+from train.train_models import TrainUpdateSenseClassifierModel
 from train.wipe_reset import WipeReset
 
 from ai_core import config
@@ -194,6 +196,23 @@ class GetTrainingIntentsView(APIView):
             user_message = 'Error getting intents'
             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
+class GetUpdateSenseDataView(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        try:
+            bot_id = request.data
+            bot = Bot.objects.get(id=bot_id)
+            intents = Intent.objects.filter(bot=bot).order_by('-id')
+            # .exclude(intent__contains="update")
+            intent_serializer = IntentSerializer(intents, many=True)
+            user_message = 'Success getting intents'
+            print(user_message)
+            return Response(intent_serializer.data, status=status.HTTP_200_OK)
+        except:
+            user_message = 'Error getting intents'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+
 class GetUpdateIntentsView(APIView):
     authentication_classes = [JSONWebTokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -230,45 +249,92 @@ class DeleteSingleIntentView(APIView):
 
 
 class FeedIntentsView(APIView):
-    # authentication_classes = [JSONWebTokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
-        # try:
-        selected_update_intent = request.data['selectedUpdateIntent']
-        intent_data = request.data['intentData']
-        intent_data = intent_data['intentData']
-        
-        
-        
-        if selected_update_intent != 'none':
-            dir_to_create = selected_update_intent
+        try:
+            selected_update_intent = request.data['selectedUpdateIntent']
+            intent_data = request.data['intentData']
+            intent_data = intent_data['intentData']
+            
+            
+            
+            if selected_update_intent != 'none':
+                dir_to_create = selected_update_intent
+                parent_dir = update_clf_model_dir
+                path = os.path.join(parent_dir, dir_to_create)
+                temp_update_intents_json_file = selected_update_intent+'.json'
+                clf_model_update_intents_json_file = os.path.join(path, temp_update_intents_json_file)
+                if not os.path.exists(path):
+                    os.mkdir(path)
+                    with open(clf_model_update_intents_json_file, 'w') as f:
+                        f.write(intent_data)
+                else:
+                    shutil.rmtree(path)
+                    os.mkdir(path)
+                    with open(clf_model_update_intents_json_file, 'w') as f:
+                        f.write(intent_data)
+
+            else: 
+                with open(clf_model_root_intents_json_file, 'w') as f:
+                    f.write(intent_data)
+
+            print(selected_update_intent)
+            
+            user_message = 'Success feeding intents'
+            print(user_message)
+            return Response(user_message, status=status.HTTP_202_ACCEPTED)
+        except:
+            user_message = 'Error feeding intents'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+
+class FeedUpdateSenseView(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        try:
+            update_sense_data = request.data
+            update_sense_data = update_sense_data['intentData']
+            dir_to_create = 'update_sense'
             parent_dir = update_clf_model_dir
             path = os.path.join(parent_dir, dir_to_create)
-            print(path)
-            update_intents_json_file = selected_update_intent+'.json'
-            clf_model_update_intents_json_file = os.path.join(path, update_intents_json_file)
+            temp_update_sense_json_file = 'update_sense.json'
+            update_sense_json_file = os.path.join(path, temp_update_sense_json_file)
             if not os.path.exists(path):
                 os.mkdir(path)
-                with open(clf_model_update_intents_json_file, 'w') as f:
-                    f.write(intent_data)
+                with open(update_sense_json_file, 'w') as f:
+                    f.write(update_sense_data)
             else:
                 shutil.rmtree(path)
                 os.mkdir(path)
-                with open(clf_model_update_intents_json_file, 'w') as f:
-                    f.write(intent_data)
+                with open(update_sense_json_file, 'w') as f:
+                    f.write(update_sense_data)
 
-        else: 
-            with open(clf_model_root_intents_json_file, 'w') as f:
-                f.write(intent_data)
+            temp_list = []
 
-        print(selected_update_intent)
-        
-        user_message = 'Success feeding intents'
-        print(user_message)
-        return Response(user_message, status=status.HTTP_202_ACCEPTED)
-        # except:
-        #     user_message = 'Error feeding intents'
-        #     return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+            with open(update_sense_json_file, "r+") as jsonFile:
+                data = json.load(jsonFile)
+
+                for temp in data:
+                    if 'update' in temp['intent']:
+                        temp['intent'] = 'update'
+                        
+                    else:
+                        temp['intent'] = 'not_update'
+                        
+
+                    temp_list.append(temp)
+
+                jsonFile.seek(0)  # rewind
+                json.dump(temp_list, jsonFile)
+                jsonFile.truncate()
+            
+            user_message = 'Success feeding intents'
+            print(user_message)
+            return Response(user_message, status=status.HTTP_202_ACCEPTED)
+        except:
+            user_message = 'Error feeding intents'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
 # SVPs
 
@@ -355,27 +421,39 @@ class TestQueryView(APIView):
     # authentication_classes = [JSONWebTokenAuthentication]
     # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
-        # try:
-        utterance = request.data['query']
-        response = TestQuery(utterance).test_query()
-        return Response(response, status=status.HTTP_200_OK)
-        # except:
-        #     user_message = 'Error testing bot'
-        #     return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            utterance = request.data['query']
+            response = TestQuery(utterance).test_query()
+            return Response(response, status=status.HTTP_200_OK)
+        except:
+            user_message = 'Error testing bot'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TrainClassifierModelView(APIView):
-    # authentication_classes = [JSONWebTokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
-        # try:
-        selected_update_intent = request.data['selectedUpdateIntent']
-        TrainClassifierModel(selected_update_intent).train_classifier_model()
-        user_message = 'Success training classifier model'
-        return Response(user_message, status=status.HTTP_200_OK)
-        # except:
-        #     user_message = 'Error training classifier model'
-        #     return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            selected_update_intent = request.data['selectedUpdateIntent']
+            TrainClassifierModel(selected_update_intent).train_classifier_model()
+            user_message = 'Success training classifier model'
+            return Response(user_message, status=status.HTTP_200_OK)
+        except:
+            user_message = 'Error training classifier model'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+
+class TrainUpdateSenseClassifierModelView(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        try:
+            TrainUpdateSenseClassifierModel().train_update_sense_classifier_model()
+            user_message = 'Success training classifier model'
+            return Response(user_message, status=status.HTTP_200_OK)
+        except:
+            user_message = 'Error training classifier model'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
 class TrainSvpModelView(APIView):
     authentication_classes = [JSONWebTokenAuthentication]

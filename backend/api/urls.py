@@ -14,6 +14,7 @@ urlpatterns = [
     path('get_intents', GetIntentsView.as_view()),
     path('delete_intent', DeleteSingleIntentView.as_view()),
     path('feed_intents', FeedIntentsView.as_view()),
+    path('feed_update_sense', FeedUpdateSenseView.as_view()),
 
     # SVPs paths
     path('create_svp', CreateSvpView.as_view()),
@@ -27,7 +28,9 @@ urlpatterns = [
     # Train path
     path('train_classifier_model', TrainClassifierModelView.as_view()),
     path('train_svp_model', TrainSvpModelView.as_view()),
+    path('train_update_sense_classifier_model', TrainUpdateSenseClassifierModelView.as_view()),
     path('get_training_intents', GetTrainingIntentsView.as_view()),
+    path('get_update_sense_data', GetUpdateSenseDataView.as_view()),
 
     path('get_update_intents', GetUpdateIntentsView.as_view()),
 

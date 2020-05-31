@@ -52,6 +52,14 @@ export class TrainService {
       this.baseUrl + '/intent/get_training_intents', botId
     );
   }
+
+  getUpdateSenseData(botId: number) {
+    return this.http.post<any>(
+      this.baseUrl + '/intent/get_update_sense_data', botId
+    );
+  }
+
+
     getAllSvps(botId, selectedIntent) {
     return this.http.post<any>(
       this.baseUrl + '/svp/get_svps', {botId, selectedIntent}
@@ -72,6 +80,13 @@ export class TrainService {
       this.baseUrl + '/intent/feed_intents', {intentData, selectedUpdateIntent}
     );
   }
+
+  feedUpdateSense(updateSenseData: any) {
+    return this.http.post<any>(
+      this.baseUrl + '/intent/feed_update_sense', updateSenseData, this.options
+    );
+  }
+
   feedSvps(svpData: any) {
     return this.http.post<any>(
       this.baseUrl + '/svp/feed_svps', svpData
@@ -82,6 +97,14 @@ export class TrainService {
       this.baseUrl + '/model/train_classifier_model', {selectedUpdateIntent}, this.options
     );
   }
+
+  trainUpdateSenseClassifierModel() {
+    return this.http.post<any>(
+      this.baseUrl + '/model/train_update_sense_classifier_model', this.options
+    );
+
+  }
+
   trainSvpModel(selectedIntent) {
     return this.http.post<any>(
       this.baseUrl + '/model/train_svp_model', {selectedIntent}, this.options

@@ -13,10 +13,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ChatboxComponent implements OnInit {
   chatboxForm: FormGroup;
   chatboxModel = new ChatboxModel();
-  private queryResponse: any;
+  private fullResponse: any;
   private thinking = false;
   private resAndQue = [];
-  private formatQueryRes = '';
+  private formattedResponse = '';
   public successUserMessage: string;
   public errorUserMessage: string;
 
@@ -40,22 +40,15 @@ export class ChatboxComponent implements OnInit {
     if (utterance.length > 1) {
       this.thinking = true;
       this.chatboxService.chatboxQuery(query).subscribe(
-      (res) => {
-        this.queryResponse = res;
-        if (this.queryResponse) {
-          console.log(this.queryResponse);
-          this.formatQueryRes = 'you are asking about: ' + '<span class="uk-text-bold">' + this.queryResponse.intent + '</span>' + '<br />';
-          if (this.queryResponse.slots.length >= 1) {
-          this.formatQueryRes += ' I have the: <br/>';
-          this.queryResponse.slots.forEach((element, index, array) => {
-            if (index === (array.length - 1) && array.length > 1) {
-              this.formatQueryRes += ' and ' + element.slot + ' to be ' + element.value;
-            } else {
-              this.formatQueryRes += ' ' + element.slot + ' to be ' + element.value + '<br />';
-            }
-          });
-        }
-          this.resAndQue.unshift(this.formatQueryRes);
+      (test_response) => {
+        if (test_response) {
+          this.fullResponse = test_response
+
+          // Default Template > Replace with any
+          this.formattedResponse = this.default_template(test_response, utterance)
+
+          // Clean up
+          this.resAndQue.unshift(this.formattedResponse);
           this.resAndQue.unshift(utterance);
           this.thinking = false;
         }
@@ -67,6 +60,23 @@ export class ChatboxComponent implements OnInit {
         }
       );
     }
+  }
+
+  // Example default template
+  default_template(response, utterance, format='') {
+      console.log(response);
+          format = 'you are asking about: ' + '<span class="uk-text-bold">' + response.intent + '</span>' + '<br />';
+          if (response.slots.length >= 1) {
+          format += ' I have the: <br/>';
+          response.slots.forEach((element, index, array) => {
+            if (index === (array.length - 1) && array.length > 1) {
+              format += ' and ' + element.slot + ' to be ' + element.value;
+            } else {
+              format += ' ' + element.slot + ' to be ' + element.value + '<br />';
+            }
+          });
+        }
+          return format
   }
 
   toggleUserMessage(notificationMessage, status) {

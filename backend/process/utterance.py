@@ -2,7 +2,7 @@ import string
 import csv
 from nltk import word_tokenize
 import pickle
-# from textblob.classifiers import NaiveBayesClassifier
+from textblob.classifiers import NaiveBayesClassifier
 
 
 class CollectUtterance:
@@ -22,19 +22,26 @@ class RemovePunctuation:
         return utterance_wo_punctuation
 
 
-# class Classification:
-#     def __init__(self, utterance, file):
-#         self.utterance = utterance
-#         self.file = file
-#
-#     def classify_intent(self):
-#         with open(self.file, 'r') as fp:
-#             cl = NaiveBayesClassifier(fp, format='json')
-#         intent = cl.classify(self.utterance)
-#         return intent
+class NbClassification:
+    def __init__(self, utterance, file):
+        self.utterance = utterance
+        self.file = file
+
+    def classify_intent(self):
+        with open(self.file, 'r') as fp:
+            cl = NaiveBayesClassifier(fp, format='json')
+        intent = cl.classify(self.utterance)
+        test = (self.utterance, intent),
+        accuracy = cl.accuracy(test)
+        # print(accuracy, '<< Accuracy')
+        # nb_clf_result = {
+        #     'intent': intent,
+        #     'accuracy': accuracy
+        # }
+        return intent
 
 
-class Classification:
+class SvmClassification:
     def __init__(self, utterance, vectorizer, clf_model):
         self.utterance = str(utterance)
         self.vectorizer = vectorizer

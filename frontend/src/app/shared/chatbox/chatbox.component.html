@@ -2,7 +2,7 @@
   <div class="uk-modal-dialog uk-modal-body">
     <button class="uk-modal-close-outside" type="button" uk-close></button>
     <div class="uk-margin">
-      <legend class="uk-legend"><span uk-icon="icon: comment; ratio: 2"></span> Chat with me</legend>
+      <legend class="uk-legend"><span uk-icon="icon: comment; ratio: 2"></span> Chat with Aura</legend>
     </div>
 
     <form [formGroup]="chatboxForm" (ngSubmit)="chatboxQueryFormSubmit($event)">
@@ -44,9 +44,9 @@
 
       </section>
 
-    <div *ngIf="queryResponse" class="uk-margin">
+    <div *ngIf="fullResponse" class="uk-margin">
        <p>Full Response: </p>
-        <textarea class="uk-textarea" rows="10" readonly>{{ queryResponse|json }}</textarea>
+        <textarea class="uk-textarea" rows="10" readonly>{{ fullResponse|json }}</textarea>
     </div>
     <p class="uk-text-right">
       <button class="uk-button uk-button-danger uk-modal-close uk-button-small" type="button" (click)="resAndQue=[]; queryResponse=''">Close Conversation</button>

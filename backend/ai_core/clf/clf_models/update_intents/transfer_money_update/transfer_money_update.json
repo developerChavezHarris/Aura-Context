@@ -1,9 +1,0 @@
-[
-
-{"intent":"none","utterance":"none"},
-
-{"intent":"transfer_money_update","utterance":"sent to julia"},
-
-{"intent":"transfer_money_update","utterance":"send to alice instead"}
-
-]
