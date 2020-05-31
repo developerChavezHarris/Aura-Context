@@ -1,4 +1,4 @@
-(Aura) Beta Verion 1.0
+(Aura) Beta Verion 1.5
 
 ## Introduction
 
