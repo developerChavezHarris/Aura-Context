@@ -82,8 +82,8 @@
 
           <div class="uk-margin">
             <div class="uk-text-small uk-margin-bottom">4. Feed the update sense data to your bot. | 5. Train the classifier model on the update sense data.</div>
-             <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom" (click)="feedUpdateSense()" >Feed Update Sense to bot</button>
-             <button type="submit" class="uk-button uk-button-danger uk-button-small uk-margin-small-bottom uk-margin-left" (click)="trainUpdateSenseClassifierModel()"><span uk-icon="play-circle"></span> Train classifier model on Update Sense data</button>
+             <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom" (click)="feedUpdateSense()" >Feed Update Sense data to bot</button>
+             <button type="submit" class="uk-button uk-button-danger uk-button-small uk-margin-small-bottom uk-margin-left" [disabled]="!canTrainUpdateSenseClassifierModel" (click)="trainUpdateSenseClassifierModel()"><span uk-icon="play-circle"></span> Train classifier model on Update Sense data</button>
              <label class="uk-margin-small-bottom uk-margin-left uk-text-small" for="file">Import JSON</label>
              <input id="file" type="file" (change)="importJson($event, '.UpdateSenseData')" class="uk-margin-small-bottom uk-margin-left">
             </div>

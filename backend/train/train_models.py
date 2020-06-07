@@ -36,12 +36,14 @@ root_clf_model = config.root_clf_model
 
 
 class TrainSvpModel:
-    def __init__(self, selected_intent):
+    def __init__(self, selected_intent, selected_intent_svp_json_file=''):
         self.selected_intent = selected_intent
-
+        temp_svp_model_json_file = selected_intent+'.json'
+        temp_svp_model_json_file_path = os.path.join(svp_model_dir_core, 'json')
+        self.selected_intent_svp_json_file = os.path.join(temp_svp_model_json_file_path, temp_svp_model_json_file)
     def train_svp_model(self):
         try:
-            with open(svp_model_json_file, encoding='utf8') as f:
+            with open(self.selected_intent_svp_json_file, encoding='utf8') as f:
                 svp_data = json.load(f)
 
             # create a new directory name with selected intent
@@ -144,7 +146,7 @@ class TrainClassifierModel:
             # mod_file = 'classification.model'
             pickle.dump(model, open(root_clf_model, 'wb'))
 
-            print('------CLASSIFICATION TRAINING COMPLETED------')
+            print('------SVC CLASSIFICATION TRAINING COMPLETED------')
             print("Vectorizer model saved to: ", root_clf_model_vectorizer)
             print("Classification model saved to: ", root_clf_model)
             # except:
@@ -152,7 +154,7 @@ class TrainClassifierModel:
             #     print(user_message)
 
         elif self.selected_update_intent != 'none':
-            pass
+            print('------NB CLASSIFICATION TRAINING COMPLETED------')
 
 class TrainUpdateSenseClassifierModel:
     def __init__(self):

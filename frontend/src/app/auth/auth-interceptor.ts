@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { ConditionalExpr } from '@angular/compiler';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 

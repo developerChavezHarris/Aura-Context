@@ -35,6 +35,6 @@ urlpatterns = [
     path('get_update_intents', GetUpdateIntentsView.as_view()),
 
     # Danger paths
-    # path('wipe_and_reset_models', WipeAndResetModelsView.as_view()),
+    path('wipe_and_reset_models', WipeAndResetModelsView.as_view()),
 
 ]

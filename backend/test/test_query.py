@@ -67,6 +67,7 @@ class TestQuery:
             # Remove punctuation from utterance and create a list of words
             utterance = (RemovePunctuation(self.utterance).remove_punctuation())
 
+            # Join the words together
             utterance = ''.join(utterance)
 
             # get last intent
@@ -77,6 +78,7 @@ class TestQuery:
             update_sense_clf_model = os.path.join(update_sense_clf_model_dir, 'update_sense.model')
             update_sense_clf_vectorizer = os.path.join(update_sense_clf_model_dir, 'update_sense.pickle')
 
+            # Classify the utterance
             current_intent = SvmClassification(utterance, root_clf_model_vectorizer, root_clf_model).classify_intent()
             # update_current_intent(current_intent)
             try:

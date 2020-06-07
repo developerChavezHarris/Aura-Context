@@ -18,5 +18,15 @@ svp_model_dir = os.path.join(base_dir, 'ai_core/svp/svp_models')
 svp_model_dir_core = os.path.join(base_dir, 'ai_core/svp')
 svp_model_json_file = os.path.join(svp_model_dir_core, 'json/ai_svps.json')
 
+
+# DANGER, PATHS TO WIPE
 wipe_clf_model_path = os.path.join(clf_model_dir, 'clf_models')
 wipe_svp_model_path = os.path.join(svp_model_dir_core, 'svp_models')
+
+# Classification model paths
+root_clf_path_to_wipe = os.path.join(clf_model_dir, 'clf_models/root')
+update_clf_path_to_wipe = os.path.join(clf_model_dir, 'clf_models/update_intents')
+
+# SVP model paths
+svp_model_path_to_wipe = os.path.join(base_dir, 'ai_core/svp/svp_models')
+svp_model_json_files_path_to_wipe = os.path.join(svp_model_dir_core, 'json')

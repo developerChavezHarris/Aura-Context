@@ -87,9 +87,9 @@ export class TrainService {
     );
   }
 
-  feedSvps(svpData: any) {
+  feedSvps(svpData: any, selectedIntent) {
     return this.http.post<any>(
-      this.baseUrl + '/svp/feed_svps', svpData
+      this.baseUrl + '/svp/feed_svps', {svpData, selectedIntent}
     );
   }
   trainClassifierModel(selectedUpdateIntent) {

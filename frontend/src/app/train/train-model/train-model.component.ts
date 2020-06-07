@@ -25,6 +25,7 @@ export class TrainModelComponent implements OnInit {
   private string;
   private has_slots: boolean;
   private canTrainClassifierModel: boolean;
+  private canTrainUpdateSenseClassifierModel: boolean;
   private canTrainSvpModel: boolean;
   private trainProgress: boolean;
   private trainCompleted: boolean;
@@ -242,7 +243,7 @@ export class TrainModelComponent implements OnInit {
       if(res.length > 1) {
       this.successUserMessage = 'Success feeding Sense Data';
       this.toggleUserMessage(this.successUserMessage, 'success');
-      // this.canTrainClassifierModel = true;
+      this.canTrainUpdateSenseClassifierModel = true;
       }
       
     },
@@ -259,9 +260,14 @@ export class TrainModelComponent implements OnInit {
     this.trainProgress = false;
     const feedSvpModel = new FeedSvpsModel();
     const svpData = this.elemRef.nativeElement.querySelectorAll('.svpData')[0].innerText;
+    if(this.selectedIntent) {
+      this.selectedUpdateIntent = this.selectedIntent;
+    } else {
+      this.selectedUpdateIntent = 'none';
+    }
     feedSvpModel.svpData = svpData;
     // console.log(intentData);
-    this.trainService.feedSvps(feedSvpModel).subscribe(
+    this.trainService.feedSvps(feedSvpModel, this.selectedIntent).subscribe(
      (res) => {
       //  console.log(res);
       if(res.length > 1) {
@@ -302,12 +308,13 @@ export class TrainModelComponent implements OnInit {
         console.log(err);
         this.errorUserMessage = err.error;
         this.toggleUserMessage(this.errorUserMessage, 'danger');
+        this.hide_training_status_model();
       }
     );
   }
 
   trainUpdateSenseClassifierModel() {
-
+    this.canTrainUpdateSenseClassifierModel = false;
     this.show_training_status_model();
 
     this.trainService.trainUpdateSenseClassifierModel().subscribe(
@@ -325,6 +332,7 @@ export class TrainModelComponent implements OnInit {
         console.log(err);
         this.errorUserMessage = err.error;
         this.toggleUserMessage(this.errorUserMessage, 'danger');
+        this.hide_training_status_model();
       }
     );
 
@@ -350,6 +358,7 @@ export class TrainModelComponent implements OnInit {
         console.log(err);
         this.errorUserMessage = err.error;
         this.toggleUserMessage(this.errorUserMessage, 'danger');
+        this.hide_training_status_model();
       }
     );
   }
@@ -372,6 +381,10 @@ export class TrainModelComponent implements OnInit {
     this.trainCompleted = false;
     this.trainProgress = true;
     uikit.modal('#training_status_modal').show();
+  }  
+
+  hide_training_status_model() {
+    uikit.modal('#training_status_modal').hide();
   }  
      
     

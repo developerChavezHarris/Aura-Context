@@ -257,8 +257,6 @@ class FeedIntentsView(APIView):
             intent_data = request.data['intentData']
             intent_data = intent_data['intentData']
             
-            
-            
             if selected_update_intent != 'none':
                 dir_to_create = selected_update_intent
                 parent_dir = update_clf_model_dir
@@ -295,6 +293,8 @@ class FeedUpdateSenseView(APIView):
         try:
             update_sense_data = request.data
             update_sense_data = update_sense_data['intentData']
+            if len(update_sense_data) < 4:
+                raise Exception
             dir_to_create = 'update_sense'
             parent_dir = update_clf_model_dir
             path = os.path.join(parent_dir, dir_to_create)
@@ -405,13 +405,22 @@ class FeedSvpsView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         try:
+            selected_intent = request.data['selectedIntent']
             svp_data = request.data['svpData']
-            with open(svp_model_json_file, 'w') as f:
-                f.write(svp_data)
-                print('SVP data written')
-            user_message = 'Success feeding svps'
-            print(user_message)
-            return Response(user_message, status=status.HTTP_202_ACCEPTED)
+            svp_data = svp_data['svpData']
+            if len(svp_data) < 4:
+                raise Exception
+
+            if selected_intent:
+                temp_svp_json_file_to_create = selected_intent+'.json'
+                parent_dir = os.path.join(svp_model_dir_core, 'json')
+                svp_json_file_to_create = os.path.join(parent_dir, temp_svp_json_file_to_create)
+                with open(svp_json_file_to_create, 'w') as f:
+                    f.write(svp_data)
+                    print('SVP data written')
+                user_message = 'Success feeding svps'
+                print(user_message)
+                return Response(user_message, status=status.HTTP_202_ACCEPTED)
         except:
             user_message = 'Error feeding svps'
             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
@@ -468,16 +477,16 @@ class TrainSvpModelView(APIView):
             user_message = 'Error training bot'
             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
-# class WipeAndResetModelsView(APIView):
-#     authentication_classes = [JSONWebTokenAuthentication]
-#     permission_classes = [IsAuthenticated]
-#     def post(self, request, *args, **kwargs):
-#         try:
-#             WipeReset.wipe_clf_model(self)
-#             WipeReset.wipe_svp_model(self)
+class WipeAndResetModelsView(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        try:
+            WipeReset.wipe_clf_model(self)
+            WipeReset.wipe_svp_model(self)
             
-#             user_message = 'Success wiping and resetting models'
-#             return Response(user_message, status=status.HTTP_200_OK)
-#         except:
-#             user_message = 'Error wiping and resetting models'
-#             return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+            user_message = 'Success wiping and resetting models'
+            return Response(user_message, status=status.HTTP_200_OK)
+        except:
+            user_message = 'Error wiping and resetting models'
+            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
