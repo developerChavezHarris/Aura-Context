@@ -204,7 +204,6 @@ class GetUpdateSenseDataView(APIView):
             bot_id = request.data
             bot = Bot.objects.get(id=bot_id)
             intents = Intent.objects.filter(bot=bot).order_by('-id')
-            # .exclude(intent__contains="update")
             intent_serializer = IntentSerializer(intents, many=True)
             user_message = 'Success getting intents'
             print(user_message)
