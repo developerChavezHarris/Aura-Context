@@ -1,5 +1,5 @@
 from test.test_query import TestQuery
-from train.train_models import TrainClassifierModel
+from train.train_models import TrainClassifierModel, TrainUpdateSenseClassifierModel
 from train.train_models import TrainSvpModel
 
 def manual_test_query():
@@ -57,10 +57,11 @@ def run_app():
         manual_test_query()
 
     elif option == '2':
-        which_model = input('Enter train_clf to train the classifier model | Enter train_svp to train an svp model: ')
+        which_model = input('Enter train_clf to train the classifier model and update sense | Enter train_svp to train an svp model: ')
         if which_model == 'train_clf':
-            TrainClassifierModel().train_classifier_model()
-            user_message = 'Success training classifier model'
+            TrainClassifierModel(selected_update_intent='none').train_classifier_model()
+            # TrainUpdateSenseClassifierModel().train_update_sense_classifier_model()
+            user_message = 'Success training classifier model(s)'
             print(user_message)    
         elif which_model == 'train_svp':
             selected_intent = input('Enter the name of the intent to train an svp model for: ')
