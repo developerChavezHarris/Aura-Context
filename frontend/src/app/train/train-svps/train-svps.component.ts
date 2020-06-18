@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class TrainSvpsComponent implements OnInit {
   @ViewChild('utteranceToLabel', {static: false}) utteranceToLabel: ElementRef;
   @ViewChild('contentBox', {static: false}) contentBox: ElementRef;
+  @ViewChild('labelQueue', {static: false}) labelQueue: ElementRef;
   createSvpForm: FormGroup;
   svpModel = new Svp();
   private uttToLabel = '';
@@ -82,8 +83,12 @@ export class TrainSvpsComponent implements OnInit {
   }
 
   getNewUtteranceToLabel() {
+    this.slotData = '';
     this.uttToLabel = '';
     this.uttToLabel = this.utteranceToLabel.nativeElement.value;
+    if(this.labelQueue.nativeElement.innerHTML.length > 2) {
+      this.labelQueue.nativeElement.innerHTML = this.uttToLabel;
+    }
     this.slotEntities = [];
     this.permanent = '';
     this.successUserMessage = 'Success sending to label queue';
@@ -99,11 +104,31 @@ export class TrainSvpsComponent implements OnInit {
     this.toggleUserMessage(this.successUserMessage, 'success');
   }
 
+  // labelSlot() {
+  //   this.slotEntity = new SlotEntity();
+  //   this.text = '';
+  //   if (window.getSelection) {
+  //     this.text = window.getSelection().toString();
+  //     if (this.text.length > 1 && this.uttToLabel.length > 1) {
+  //       this.toggleLabelModal();
+  //     }
+  //   }
+  // }
+
+
   labelSlot() {
     this.slotEntity = new SlotEntity();
     this.text = '';
-    if (window.getSelection) {
+    if (window.getSelection().type === 'Range') {
       this.text = window.getSelection().toString();
+      // const selection = window.getSelection().getRangeAt(0);
+      // const selectedText = selection.extractContents();
+      // let span = document.createElement("span");
+      // span.className = "highlight";
+      // span.style.backgroundColor = "yellow";
+      // span.appendChild(selectedText);
+      // selection.insertNode(span);
+
       if (this.text.length > 1 && this.uttToLabel.length > 1) {
         this.toggleLabelModal();
       }
@@ -144,7 +169,7 @@ export class TrainSvpsComponent implements OnInit {
         this.permanent = this.permanent + this.temp;
       }
       // tslint:disable-next-line:max-line-length
-      console.log(this.permanent)
+      // console.log(this.permanent)
       this.slotData = '[' + '"' + this.uttToLabel + '"' + ',' + '{' + '"' + 'entities' + '"' + ':' + '[' + this.permanent + ']' + '}' + ']';
       this.slotValuePair = new SlotValuePairing();
       this.slotValuePair.slot = this.label;
@@ -163,8 +188,7 @@ export class TrainSvpsComponent implements OnInit {
   clearAll() {
     this.slotValuePairings = [];
     this.slotValuePair.slot = '';
-    this.slotValuePair.value = '';
-    // this.utteranceToLabel.nativeElement.value = '';
+    this.slotValuePair.value = '';   
     this.uttToLabel = '';
     this.permanent = '';
     this.slotData = '';

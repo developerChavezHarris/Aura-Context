@@ -82,7 +82,7 @@
 
     <div class="uk-text-small uk-margin-bottom">LABEL QUEUE: Use your mouse to highlight a word from the utterance and select a label.</div>
     <div class="uk-margin uk-section-default">
-      <div id="labelled_utterance" class="uk-input" (mouseup)="labelSlot()">{{ uttToLabel }}</div>
+      <div #labelQueue id="labelled_utterance" class="uk-input" (mouseup)="labelSlot()">{{ uttToLabel }}</div>
 
     </div>
 

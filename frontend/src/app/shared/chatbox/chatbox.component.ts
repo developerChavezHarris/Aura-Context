@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ChatboxService} from '../chatbox.service';
 import * as uikit from 'uikit';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -11,6 +11,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./chatbox.component.css']
 })
 export class ChatboxComponent implements OnInit {
+  @ViewChild('queryInput', {static: false}) queryInput: ElementRef;
+
   chatboxForm: FormGroup;
   chatboxModel = new ChatboxModel();
   private fullResponse: any;
@@ -51,6 +53,7 @@ export class ChatboxComponent implements OnInit {
           this.resAndQue.unshift(this.formattedResponse);
           this.resAndQue.unshift(utterance);
           this.thinking = false;
+          this.selectInputText();
         }
       },
         (err: HttpErrorResponse) => {
@@ -79,8 +82,19 @@ export class ChatboxComponent implements OnInit {
           return format
   }
 
+  selectInputText() {
+    <HTMLInputElement>this.queryInput.nativeElement.select();
+  }
+
   toggleUserMessage(notificationMessage, status) {
     uikit.notification(notificationMessage, {pos: 'bottom-right', status: status});
+  }
+
+  closeConversation() {
+    this.resAndQue = [];
+    this.fullResponse = '';
+    this.queryInput.nativeElement.value = '';
+
   }
 
 }

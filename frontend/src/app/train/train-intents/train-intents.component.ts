@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {TrainService} from '../train.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./train-intents.component.css']
 })
 export class TrainIntentsComponent implements OnInit {
+  @ViewChild('intentInput', {static: false}) intentInput: ElementRef;
+
   createIntentForm: FormGroup;
   intentModel = new Intent();
   private bots: any;
@@ -24,6 +26,7 @@ export class TrainIntentsComponent implements OnInit {
   private intentDataTemp;
   public successUserMessage: string;
   public errorUserMessage: string;
+  public textFile: any;
 
   constructor(
     private trainService: TrainService,
@@ -47,6 +50,38 @@ export class TrainIntentsComponent implements OnInit {
   }
 
   createIntentFormSubmit() {
+    if(this.textFile) {
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        let lines = fileReader.result;
+        let array = (<string>lines).split('\n');
+        array.forEach(line => {
+          const data = this.createIntentForm.getRawValue();
+          data.intent = this.selectedIntent;
+          data.utterance = line;
+          data.intent_data = '{' + '"intent":' + '"' + data.intent + '"' + ',' + '"utterance":' + '"' + data.utterance + '"' + '}';
+          this.trainService.createIntent(data).subscribe(
+            (res) => {
+              // console.log(res);
+              if(res) {
+              this.intentsAndUtterances.unshift(res);
+              this.successUserMessage = 'Success creating intent';
+              this.toggleUserMessage(this.successUserMessage, 'success') 
+                this.textFile = '';
+              }
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+              this.errorUserMessage = err.error;
+              this.toggleUserMessage(this.errorUserMessage, 'danger');
+            }
+          );
+        });
+      }
+      fileReader.readAsText(this.textFile);
+
+    } else {
+
     const data = this.createIntentForm.getRawValue();
     data.intent = this.selectedIntent;
     data.intent_data = '{' + '"intent":' + '"' + data.intent + '"' + ',' + '"utterance":' + '"' + data.utterance + '"' + '}';
@@ -58,6 +93,8 @@ export class TrainIntentsComponent implements OnInit {
         this.intentsAndUtterances.unshift(res);
         this.successUserMessage = 'Success creating intent';
         this.toggleUserMessage(this.successUserMessage, 'success')
+        // select the text
+        this.selectInputText();
         }
       },
       (err: HttpErrorResponse) => {
@@ -67,6 +104,7 @@ export class TrainIntentsComponent implements OnInit {
       }
     );
   }
+}
 
   getBots() {
     this.trainService.getAllBots().subscribe(
@@ -142,7 +180,7 @@ export class TrainIntentsComponent implements OnInit {
   deleteUtterance(intentId, i) {
     this.trainService.deleteSingleUtterance(intentId).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         if(res) {
         this.intentsAndUtterances.splice(i, 1);
         this.successUserMessage = 'Success deleting intent';
@@ -160,5 +198,32 @@ export class TrainIntentsComponent implements OnInit {
   toggleUserMessage(notificationMessage, status) {
     uikit.notification(notificationMessage, {pos: 'bottom-right', status: status});
   }
+
+  // Select text inside a div
+  // selectText(id){
+  //   var sel, range;
+  //   var el = document.getElementById(id); //get element id
+  //   if (window.getSelection && document.createRange) { //Browser compatibility
+  //     sel = window.getSelection();
+  //     if(sel.toString() == ''){ //no text selection
+  //      window.setTimeout(function(){
+  //       range = document.createRange(); //range object
+  //       range.selectNodeContents(el); //sets Range
+  //       sel.removeAllRanges(); //remove all ranges from selection
+  //       sel.addRange(range);//add Range to a Selection.
+  //     },1);
+  //     }
+
+  //   }
+  // }
+
+  selectInputText() {
+    <HTMLInputElement>this.intentInput.nativeElement.select();
+  }
+
+  uploadFile(event) {
+    this.textFile = event.target.files[0];
+  }
+
 
 }

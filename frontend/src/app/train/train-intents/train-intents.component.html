@@ -38,7 +38,7 @@
             </div>
 
          <div class="uk-margin">
-            <input onclick="this.select()" class="uk-input" type="text" formControlName="utterance" placeholder="Enter an utterance">
+            <input #intentInput onclick="this.select()" class="uk-input" type="text" formControlName="utterance" placeholder="Enter an utterance">
          </div>
         <div class="uk-margin">
             <input class="uk-input" type="text" formControlName="intent_data" hidden>
@@ -49,8 +49,10 @@
                 <option *ngFor="let intent of intents" value="{{ intent }}">{{ intent }}</option>
             </select>
         </div> -->
-              <div class="uk-margin">
-                <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom">Save this intent</button>
+        <div class="uk-margin">
+        <div class="uk-text-small uk-margin-bottom">Load data from a .txt file for an intent</div>
+              <input id="intent-txt" type="file" accept=".txt" (change)="uploadFile($event)">
+                <button type="submit" class="uk-button uk-button-secondary uk-button-small uk-margin-small-bottom">Save intent(s)</button>
               </div>
       </form>
 

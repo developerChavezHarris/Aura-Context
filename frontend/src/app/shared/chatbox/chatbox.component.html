@@ -9,7 +9,7 @@
       <fieldset class="uk-fieldset">
 
         <div class="uk-margin">
-          <input class="uk-input" type="text" formControlName="query" onclick="this.select()" placeholder="Enter an utterance and press enter">
+          <input #queryInput class="uk-input" type="text" formControlName="query" onclick="this.select()" placeholder="Enter an utterance and press enter">
         </div>
 
       </fieldset>
@@ -49,7 +49,7 @@
         <textarea class="uk-textarea" rows="10" readonly>{{ fullResponse|json }}</textarea>
     </div>
     <p class="uk-text-right">
-      <button class="uk-button uk-button-danger uk-modal-close uk-button-small" type="button" (click)="resAndQue=[]; fullResponse=''">Close Conversation</button>
+      <button class="uk-button uk-button-danger uk-modal-close uk-button-small" type="button" (click)="closeConversation()">Close Conversation</button>
     </p>
 
   </div>
