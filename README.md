@@ -1,4 +1,4 @@
-(Aura) Beta Version 1.5
+(Aura) Beta Version 1.8
 
 ## Introduction
 
