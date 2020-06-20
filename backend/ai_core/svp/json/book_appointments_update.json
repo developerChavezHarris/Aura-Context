@@ -1,0 +1,12 @@
+[
+["change the time to 2pm",{"entities":[[19,22,"time"]]}],
+
+["change the service to hair cut",{"entities":[[22,30,"service"]]}],
+
+["make the service waxing",{"entities":[[17,23,"service"]]}],
+
+["change the day to monday",{"entities":[[18,24,"day"]]}],
+
+["set the day to wednesday",{"entities":[[15,24,"day"]]}]
+
+]

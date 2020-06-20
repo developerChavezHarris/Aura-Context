@@ -22,7 +22,7 @@ from .models import Svp
 from .models import Bot
 
 # custom imports
-from test.test_query import TestQuery
+from test.test_query_salon import TestQuery
 from train.train_models import TrainClassifierModel
 from train.train_models import TrainSvpModel
 from train.train_models import TrainUpdateSenseClassifierModel
@@ -429,13 +429,13 @@ class TestQueryView(APIView):
     # authentication_classes = [JSONWebTokenAuthentication]
     # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
-        try:
-            utterance = request.data['query']
-            response = TestQuery(utterance).test_query()
-            return Response(response, status=status.HTTP_200_OK)
-        except:
-            user_message = 'Error testing bot'
-            return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
+        # try:
+        utterance = request.data['query']
+        response = TestQuery(utterance).test_query()
+        return Response(response, status=status.HTTP_200_OK)
+        # except:
+        #     user_message = 'Error testing bot'
+        #     return Response(user_message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TrainClassifierModelView(APIView):

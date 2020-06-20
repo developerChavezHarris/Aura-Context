@@ -9,7 +9,10 @@ import re
 from process.utterance import CollectUtterance, RemovePunctuation, SvmClassification, NbClassification
 from process.character import RemoveRepeatedChars
 from process.word import LemmatizeWords, CheckSpelling, StopWords, Svps
-from context.context import Context
+from context.context import UpdateContext
+from context.context import GetContext
+from context.context import GetLastIntent
+
 
 from ai_core import config
 
@@ -142,12 +145,10 @@ class TestQuery:
                         "intent": final_intent,
                         "slots": svps,
                     }
-                    context = Context(response).get_context()
-                    if len(context) > 0:
-                        temp_last_intent = str(context[0]['intent'])
-                        update_last_intent(temp_last_intent)
-                    else:
-                        pass
+                    UpdateContext(response).update_context()
+                    context = GetContext().get_context()
+                    last_intent = GetLastIntent(context).get_last_intent()
+                    update_last_intent(last_intent)
                 else:
                     response = {
                     "time_stamp": time_stamp,
@@ -156,12 +157,10 @@ class TestQuery:
                     "intent": final_intent,
                     "slots": []
                     }
-                    context = Context(response).get_context()
-                    if len(context) > 0:
-                        temp_last_intent = str(context[0]['intent'])
-                        update_last_intent(temp_last_intent)
-                    else:
-                        pass
+                    UpdateContext(response).update_context()
+                    context = GetContext().get_context()
+                    last_intent = GetLastIntent(context).get_last_intent()
+                    update_last_intent(last_intent)
             else:
                 response = {
                 "time_stamp": time_stamp,
@@ -170,14 +169,12 @@ class TestQuery:
                 "intent": final_intent,
                 "slots": []
             }
-                context = Context(response).get_context()
-                if len(context) > 0:
-                        temp_last_intent = str(context[0]['intent'])
-                        update_last_intent(temp_last_intent)
-                else:
-                    pass  
+                UpdateContext(response).update_context()
+                context = GetContext().get_context()
+                last_intent = GetLastIntent(context).get_last_intent()
+                update_last_intent(last_intent)  
 
-            print(response)
+            # print(response)
 
             return response   
             

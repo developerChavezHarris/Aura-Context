@@ -1,0 +1,12 @@
+[
+{"intent":"book_appointments_update","utterance":"set the day to wednesday"},
+
+{"intent":"book_appointments_update","utterance":"change the day to monday"},
+
+{"intent":"book_appointments_update","utterance":"make the service waxing"},
+
+{"intent":"book_appointments_update","utterance":"change the service to hair cut"},
+
+{"intent":"book_appointments_update","utterance":"change the time to 2pm"}
+
+]
