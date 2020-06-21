@@ -3,7 +3,6 @@ response_context = []
 slots_context = []
 response = ''
 
-
 class ConversationContext:
     def __init__(self, current_intent, last_intent, response):
         self.current_intent = current_intent
@@ -66,16 +65,11 @@ def removeDuplicateSlots():
     # Remove duplicate values
     global slots_context
     l = slots_context
+    # print(type(slots_context))
     if len(l) > 0:
-        vals = sorted(l, key = lambda i: i['value'], reverse=True)
-        k = [x['slot'] for x in vals]
-        no_duplicate_slots=[]
-        for i in Counter(k):
-            all = [x for x in vals if x['slot']==i]
-            no_duplicate_slots.append(max(all, key=lambda x: x['value']))   
+        no_duplicate_slots = dict((v['slot'],v) for v in l).values()  
         response['slots'] = no_duplicate_slots
-        return no_duplicate_slots
-
+    return response
 
 def get_response():
     global response

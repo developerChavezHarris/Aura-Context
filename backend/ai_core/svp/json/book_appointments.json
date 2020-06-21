@@ -1,4 +1,14 @@
 [
+["can i book for a haircut",{"entities":[[17,24,"service"]]}],
+
+["i need a manicure booked",{"entities":[[9,17,"service"]]}],
+
+["can i set up a time to have my brows done",{"entities":[[31,36,"service"]]}],
+
+["can you work on my nails on monday",{"entities":[[19,24,"service"],[28,34,"day"]]}],
+
+["i need to book a 2pm appointment for curling tomorrow",{"entities":[[17,20,"time"],[37,44,"service"],[45,53,"day"]]}],
+
 ["Hi good afternoon. Could I book a hair coloring session tomorrow at 10am? Are there any spaces available for that time?",{"entities":[[34,47,"service"],[56,64,"day"],[68,72,"time"]]}],
 
 ["How long in advance do I need to make an appointment for a makeup session?",{"entities":[[59,65,"service"]]}],

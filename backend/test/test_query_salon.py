@@ -89,9 +89,6 @@ class TestQuery:
 
         # Classify the utterance
         current_intent = SvmClassification(utterance, root_clf_model_vectorizer, root_clf_model).classify_intent()
-        # Clear context here
-        # if current_intent != 'book_appointments' or current_intent != 'book_appointments_update' or current_intent != 'ask_about_service':
-        #     ClearContext().clear_context()
 
         try:
             is_it_update = SvmClassification(utterance, update_sense_clf_vectorizer, update_sense_clf_model).classify_intent()

@@ -1,4 +1,14 @@
 [
+{"intent":"book_appointments","utterance":"i need to book a 2pm appointment for curling tomorrow"},
+
+{"intent":"book_appointments","utterance":"can you work on my nails on monday"},
+
+{"intent":"book_appointments","utterance":"can i set up a time to have my brows done"},
+
+{"intent":"book_appointments","utterance":"i need a manicure booked"},
+
+{"intent":"book_appointments","utterance":"can i book for a haircut"},
+
 {"intent":"book_appointments","utterance":"help me to make an appointment"},
 
 {"intent":"book_appointments","utterance":"can i book"},
