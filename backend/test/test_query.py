@@ -91,7 +91,11 @@ class TestQuery:
 
 
             if is_it_update == "update":
-                matching_update_path_to_last_intent = the_last_intent+'_update'
+                if '_update' in the_last_intent:
+                    temp_intent = the_last_intent.replace('_update','')
+                    matching_update_path_to_last_intent = temp_intent+'_update'
+                else:
+                    matching_update_path_to_last_intent = the_last_intent+'_update'
                 path_to_look_for = os.path.join(update_clf_model_dir, matching_update_path_to_last_intent)
                 if os.path.exists(path_to_look_for):
                     # try:
@@ -99,8 +103,11 @@ class TestQuery:
                     intent = NbClassification(utterance, temp_update_intents_json_file).classify_intent()
                     update_current_intent(intent)
                 else:
-                    intent = current_intent
-                    update_current_intent(intent)
+                    pass
+                    # intent = current_intent
+                    # update_current_intent(intent)
+                    # intent = NbClassification(utterance, temp_update_intents_json_file).classify_intent()
+                    # update_current_intent(intent)
 
             elif is_it_update == "not_update":
                 intent = current_intent

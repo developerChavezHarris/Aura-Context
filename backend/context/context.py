@@ -1,4 +1,7 @@
 context = []
+# response_context = []
+# slots_context = []
+# response = ''
 
 class UpdateContext:
     def __init__(self, response):
@@ -26,7 +29,7 @@ class GetLastIntent:
             pass
 
 
-# To move into its own separate files >>> To work on
+
 
 # class UpdateResponseContext:
 #     def __init__(self, response):
@@ -54,19 +57,17 @@ class GetLastIntent:
 
 # def removeDuplicateSlots():
 #     global response
+#     global move_to_confirmed
 #     # Remove duplicate values
 #     global slots_context
 #     l = slots_context
+#     # print(type(slots_context))
 #     if len(l) > 0:
-#         vals = sorted(l, key = lambda i: i['value'], reverse=True)
-#         k = [x['slot'] for x in vals]
-#         no_duplicate_slots=[]
-#         for i in Counter(k):
-#             all = [x for x in vals if x['slot']==i]
-#             no_duplicate_slots.append(max(all, key=lambda x: x['value']))   
+#         no_duplicate_slots = dict((v['slot'],v) for v in l).values()
+#         if len(no_duplicate_slots) == 3:
+#             move_to_confirmed = True
 #         response['slots'] = no_duplicate_slots
-#         return no_duplicate_slots
-
+#     return response
 
 # def get_response():
 #     global response

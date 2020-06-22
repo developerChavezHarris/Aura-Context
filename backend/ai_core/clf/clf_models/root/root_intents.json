@@ -1,4 +1,78 @@
 [
+{"intent":"book_appointments_clear","utterance":"can i start over please"},
+
+{"intent":"book_appointments_clear","utterance":"lets start over"},
+
+{"intent":"yes","utterance":"sounds good"},
+
+{"intent":"yes","utterance":"thats right"},
+
+{"intent":"yes","utterance":"yes mam"},
+
+{"intent":"yes","utterance":"yes sir"},
+
+{"intent":"yes","utterance":"yeaah"},
+
+{"intent":"book_appointments_clear","utterance":"let me start from scratch"},
+
+{"intent":"book_appointments_clear","utterance":"can i start over"},
+
+{"intent":"book_appointments_clear","utterance":"start over"},
+
+{"intent":"no","utterance":"nooo"},
+
+{"intent":"no","utterance":"nope"},
+
+{"intent":"no","utterance":"no"},
+
+{"intent":"reschedule_appointment","utterance":"can i change the date for my appointment"},
+
+{"intent":"reschedule_appointment","utterance":"can i move my appointment to another day"},
+
+{"intent":"payment_methods","utterance":"can i pay by card"},
+
+{"intent":"payment_methods","utterance":"do you take cash"},
+
+{"intent":"opening_hours","utterance":"business hours"},
+
+{"intent":"opening_hours","utterance":"tell me your business hours"},
+
+{"intent":"opening_hours","utterance":"when do you open"},
+
+{"intent":"who_are_you","utterance":"say who you are"},
+
+{"intent":"who_are_you","utterance":"who are you"},
+
+{"intent":"who_made_you","utterance":"who created you"},
+
+{"intent":"who_made_you","utterance":"who made you"},
+
+{"intent":"cancel_appointments","utterance":"dont bother with the appointment"},
+
+{"intent":"cancel_appointments","utterance":"i no longer want the appointment"},
+
+{"intent":"cancel_appointments","utterance":"i wanna cancel my appointment"},
+
+{"intent":"goodbye","utterance":"later"},
+
+{"intent":"goodbye","utterance":"goodbye"},
+
+{"intent":"greeting","utterance":"hey"},
+
+{"intent":"greeting","utterance":"hello there"},
+
+{"intent":"greeting","utterance":"hey bro"},
+
+{"intent":"yes","utterance":"yeah"},
+
+{"intent":"yes","utterance":"yup"},
+
+{"intent":"yes","utterance":"yes"},
+
+{"intent":"ask_about_service","utterance":"do you do waxing"},
+
+{"intent":"ask_about_service","utterance":"do you offer manicure"},
+
 {"intent":"book_appointments","utterance":"i need to book a 2pm appointment for curling tomorrow"},
 
 {"intent":"book_appointments","utterance":"can you work on my nails on monday"},
