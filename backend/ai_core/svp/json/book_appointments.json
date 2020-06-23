@@ -1,4 +1,10 @@
 [
+["i want to visit to have my hair done",{"entities":[[27,31,"service"]]}],
+
+["can i get a manicure done at 2pm",{"entities":[[29,32,"time"],[12,20,"service"]]}],
+
+["help me with a 10AM booking",{"entities":[[15,19,"time"]]}],
+
 ["can i book for a haircut",{"entities":[[17,24,"service"]]}],
 
 ["i need a manicure booked",{"entities":[[9,17,"service"]]}],

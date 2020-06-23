@@ -1,4 +1,566 @@
 [
+{"intent":"book_appointments_clear","utterance":"lets do this again"},
+
+{"intent":"book_appointments_clear","utterance":"trash this stuff"},
+
+{"intent":"no","utterance":"cancel this"},
+
+{"intent":"no","utterance":"dont bother"},
+
+{"intent":"no","utterance":"noooo"},
+
+{"intent":"payment_methods","utterance":"i have a 360card and i was wondering if i can use it"},
+
+{"intent":"payment_methods","utterance":"i have a mastercard do you take that"},
+
+{"intent":"payment_methods","utterance":"can i swipe my visa"},
+
+{"intent":"opening_hours","utterance":"how late do you open"},
+
+{"intent":"opening_hours","utterance":"when in closing time"},
+
+{"intent":"opening_hours","utterance":"i need a business hours"},
+
+{"intent":"opening_hours","utterance":"when are you closing"},
+
+{"intent":"opening_hours","utterance":"when do you operate"},
+
+{"intent":"ask_about_service","utterance":"can you work on my hair"},
+
+{"intent":"ask_about_service","utterance":"do you cater for spa"},
+
+{"intent":"joke","utterance":"joke with me"},
+
+{"intent":"joke","utterance":"give me a joke"},
+
+{"intent":"joke","utterance":"say a funny thing"},
+
+{"intent":"who_are_you","utterance":"show me some id"},
+
+{"intent":"who_are_you","utterance":"who the hell are you"},
+
+{"intent":"who_are_you","utterance":"reveal your identity"},
+
+{"intent":"who_made_you","utterance":"whats the place you came from"},
+
+{"intent":"who_made_you","utterance":"whats your inventor"},
+
+{"intent":"who_made_you","utterance":"did got created you"},
+
+{"intent":"who_made_you","utterance":"who made you angela"},
+
+{"intent":"cancel_appointments","utterance":"remove the appointment from my calendar"},
+
+{"intent":"cancel_appointments","utterance":"delete my appointment"},
+
+{"intent":"cancel_appointments","utterance":"remove my appointment"},
+
+{"intent":"reschedule_appointment","utterance":"alter my appointment"},
+
+{"intent":"reschedule_appointment","utterance":"the appointment day have to change"},
+
+{"intent":"reschedule_appointment","utterance":"please change my appointment"},
+
+{"intent":"reschedule_appointment","utterance":"can i move my appointment"},
+
+{"intent":"book_appointments","utterance":"lets arrange for my barber"},
+
+{"intent":"book_appointments","utterance":"can we have a session"},
+
+{"intent":"book_appointments","utterance":"i just wanna book"},
+
+{"intent":"book_appointments","utterance":"help me with a 10AM booking"},
+
+{"intent":"book_appointments","utterance":"can i get a manicure done at 2pm"},
+
+{"intent":"book_appointments","utterance":"i want to visit to have my hair done"},
+
+{"intent":"book_appointments","utterance":"can we arrange to meet"},
+
+{"intent":"book_appointments","utterance":"hey i wanna set up a visit"},
+
+{"intent":"book_appointments","utterance":"book me in baby"},
+
+{"intent":"goodbye","utterance":"I'd say goodbye, but you're not worth it."},
+
+{"intent":"goodbye","utterance":"Yes, I do. The word goodbye is simple and concise."},
+
+{"intent":"goodbye","utterance":"Forever and forever farewell. If we do meet again, we'll smile indeed. If not, 'tis true parting was well made."},
+
+{"intent":"goodbye","utterance":"See you on the internet!"},
+
+{"intent":"goodbye","utterance":"Nope, I try to be creative whenever I can."},
+
+{"intent":"goodbye","utterance":"Who cares? There's no need to overcomplicate things!"},
+
+{"intent":"goodbye","utterance":"Sometimes. When I feel like it, I say other words."},
+
+{"intent":"goodbye","utterance":"We may not talk for a long time, but I hope we don't lose touch."},
+
+{"intent":"goodbye","utterance":"Sayonara, muchachos!"},
+
+{"intent":"goodbye","utterance":"See you at the restaurant at the edge of the universe!"},
+
+{"intent":"goodbye","utterance":"You will do well."},
+
+{"intent":"goodbye","utterance":"See you in another life, brotha!"},
+
+{"intent":"goodbye","utterance":"Come back when you can't stay so long."},
+
+{"intent":"goodbye","utterance":"Never look back!"},
+
+{"intent":"goodbye","utterance":"After four, dinosaur."},
+
+{"intent":"goodbye","utterance":"Don’t forget to send a letter."},
+
+{"intent":"goodbye","utterance":"Goodbye forever."},
+
+{"intent":"goodbye","utterance":"After three, chimpanzee!"},
+
+{"intent":"goodbye","utterance":"After two, kangaroo!"},
+
+{"intent":"goodbye","utterance":"Next time, bring more cookies."},
+
+{"intent":"goodbye","utterance":"That's all folks."},
+
+{"intent":"goodbye","utterance":"Party easy, drive safe, and return with a smile on your face."},
+
+{"intent":"goodbye","utterance":"So long, suckers!"},
+
+{"intent":"goodbye","utterance":"Hasta lasagna, don't get any on ya"},
+
+{"intent":"goodbye","utterance":"Make sure the doormat says goodbye!"},
+
+{"intent":"goodbye","utterance":"Until next time."},
+
+{"intent":"goodbye","utterance":"See you in the future."},
+
+{"intent":"goodbye","utterance":"Au revoir!"},
+
+{"intent":"goodbye","utterance":"Begone!"},
+
+{"intent":"goodbye","utterance":"Take care, polar bear!"},
+
+{"intent":"goodbye","utterance":"Peace out, rainbow trout!"},
+
+{"intent":"goodbye","utterance":"I'm outta here like spit through a trumpet."},
+
+{"intent":"goodbye","utterance":"Adios, amigos."},
+
+{"intent":"goodbye","utterance":"Toodaloo, caribou!"},
+
+{"intent":"goodbye","utterance":"I'm outtie."},
+
+{"intent":"goodbye","utterance":"I shall return."},
+
+{"intent":"goodbye","utterance":"Catch you round like a rissole!"},
+
+{"intent":"goodbye","utterance":"Take it easy, greasy. You've got a long way to slide."},
+
+{"intent":"goodbye","utterance":"See you, space cowboy."},
+
+{"intent":"goodbye","utterance":"Screw you guys, I'm going home!"},
+
+{"intent":"goodbye","utterance":"Ciao ciao, brown cow!"},
+
+{"intent":"goodbye","utterance":"I’ll show you to the door!"},
+
+{"intent":"goodbye","utterance":"I’m late for my bus, gigantopithecus!"},
+
+{"intent":"goodbye","utterance":"Make new friends on the sidewalk!"},
+
+{"intent":"goodbye","utterance":"Gotta go, the power of the shower compels me."},
+
+{"intent":"goodbye","utterance":"Stay cool, my dude."},
+
+{"intent":"goodbye","utterance":"Bye! I tolerate you!"},
+
+{"intent":"goodbye","utterance":"Move out, brussels sprout!"},
+
+{"intent":"goodbye","utterance":"Later, nerds!"},
+
+{"intent":"goodbye","utterance":"See you soon, baboon!"},
+
+{"intent":"goodbye","utterance":"Don't trip on a raindrop!"},
+
+{"intent":"goodbye","utterance":"See you later, aggregator!"},
+
+{"intent":"goodbye","utterance":"Be careful! Don't get mauled by a squirrel!"},
+
+{"intent":"goodbye","utterance":"Be sweet, parakeet."},
+
+{"intent":"goodbye","utterance":"Don't get cut by a blade of grass!"},
+
+{"intent":"goodbye","utterance":"Better shake, rattlesnake!"},
+
+{"intent":"goodbye","utterance":"Parting is such sweet sorrow, that I shall say good night till it be tomorrow."},
+
+{"intent":"goodbye","utterance":"Don't forget to be awesome."},
+
+{"intent":"goodbye","utterance":"Don't let the door hit ya where the good lord split ya."},
+
+{"intent":"goodbye","utterance":"Later, potato!"},
+
+{"intent":"goodbye","utterance":"Later, skater!"},
+
+{"intent":"goodbye","utterance":"Shine on, you crazy diamonds."},
+
+{"intent":"goodbye","utterance":"May the force be with you... always."},
+
+{"intent":"goodbye","utterance":"In a while, crocodile."},
+
+{"intent":"goodbye","utterance":"Catch ya later, future dudes!"},
+
+{"intent":"goodbye","utterance":"I'm off like a dirty shirt."},
+
+{"intent":"goodbye","utterance":"I gotta jet."},
+
+{"intent":"goodbye","utterance":"As you wish, jellyfish!"},
+
+{"intent":"goodbye","utterance":"Cya"},
+
+{"intent":"goodbye","utterance":"Bye for now."},
+
+{"intent":"goodbye","utterance":"Don't get lost on your way to class!"},
+
+{"intent":"goodbye","utterance":"See you when I see you."},
+
+{"intent":"goodbye","utterance":"Tootle-loo, kangaroo."},
+
+{"intent":"goodbye","utterance":"Smell ya later!"},
+
+{"intent":"goodbye","utterance":"Love, peace, and chicken grease."},
+
+{"intent":"goodbye","utterance":"Cool Goodbye Sayings"},
+
+{"intent":"goodbye","utterance":"Cheerio!"},
+
+{"intent":"goodbye","utterance":"Happy trails!"},
+
+{"intent":"goodbye","utterance":"Adios, hippos."},
+
+{"intent":"goodbye","utterance":"See ya, wouldn't wanna be ya."},
+
+{"intent":"goodbye","utterance":"Peace out, girl scout!"},
+
+{"intent":"goodbye","utterance":"Time to scoot, little newt."},
+
+{"intent":"goodbye","utterance":"Don't forget to come back!"},
+
+{"intent":"goodbye","utterance":"Once more unto the breach, dear friends!"},
+
+{"intent":"goodbye","utterance":"Chop chop, lollipop!"},
+
+{"intent":"goodbye","utterance":"Influence everyone in a good way!"},
+
+{"intent":"goodbye","utterance":"Can’t star, blue jay."},
+
+{"intent":"goodbye","utterance":"Oh, and in case I don't see you—good afternoon, good evening, and good night!"},
+
+{"intent":"goodbye","utterance":"I'm gonna make a like a bakery truck and haul buns."},
+
+{"intent":"goodbye","utterance":"Gotta roll!"},
+
+{"intent":"goodbye","utterance":"It's been a pleasure and a privilege to meet you."},
+
+{"intent":"goodbye","utterance":"I look forward to our next meeting."},
+
+{"intent":"goodbye","utterance":"Be good and don't get caught."},
+
+{"intent":"goodbye","utterance":"Hasta la vista, baby."},
+
+{"intent":"goodbye","utterance":"Thank you for your cooperation. Farewell."},
+
+{"intent":"goodbye","utterance":"Don't get attacked by a bear, it's night-time!"},
+
+{"intent":"goodbye","utterance":"Blow a kiss, goldfish."},
+
+{"intent":"goodbye","utterance":"Adieu, cockatoo!"},
+
+{"intent":"goodbye","utterance":"Have fun storming the castle!"},
+
+{"intent":"goodbye","utterance":"See you on the other side."},
+
+{"intent":"goodbye","utterance":"Take care, butterfly."},
+
+{"intent":"goodbye","utterance":"I gotta bounce."},
+
+{"intent":"goodbye","utterance":"Toodle-pip!"},
+
+{"intent":"goodbye","utterance":"Calc you later!"},
+
+{"intent":"goodbye","utterance":"Have a good one."},
+
+{"intent":"goodbye","utterance":"Give a hug, ladybug."},
+
+{"intent":"goodbye","utterance":"Later, haters."},
+
+{"intent":"goodbye","utterance":"It was nice to see you again."},
+
+{"intent":"goodbye","utterance":"Don't get run over!"},
+
+{"intent":"goodbye","utterance":"Catch you on the flip side."},
+
+{"intent":"goodbye","utterance":"You're still here? It's over. Go home. Go!"},
+
+{"intent":"goodbye","utterance":"Out to the door, dinosaur."},
+
+{"intent":"goodbye","utterance":"See you soon, racoon."},
+
+{"intent":"goodbye","utterance":"Gotta bolt!"},
+
+{"intent":"goodbye","utterance":"It has been emotional, bye."},
+
+{"intent":"goodbye","utterance":"To the winch, wench!"},
+
+{"intent":"goodbye","utterance":"Smoke me a kipper, I'll be back for breakfast."},
+
+{"intent":"goodbye","utterance":"Bye bye, butterfly."},
+
+{"intent":"goodbye","utterance":"Gotta get going."},
+
+{"intent":"goodbye","utterance":"Well, I'm off!"},
+
+{"intent":"goodbye","utterance":"Gotta go, buffalo."},
+
+{"intent":"goodbye","utterance":"Long live and prosper!"},
+
+{"intent":"goodbye","utterance":"Stay classy."},
+
+{"intent":"goodbye","utterance":"Gotta hit the road."},
+
+{"intent":"goodbye","utterance":"Peace out!"},
+
+{"intent":"goodbye","utterance":"Catch you on the rebound."},
+
+{"intent":"goodbye","utterance":"Fare thee well."},
+
+{"intent":"goodbye","utterance":"Okay...bye, fry guy!"},
+
+{"intent":"goodbye","utterance":"I’m out of here."},
+
+{"intent":"goodbye","utterance":"See you later, alligator!"},
+
+{"intent":"goodbye","utterance":"If I don’t see you around, I'll see you square."},
+
+{"intent":"goodbye","utterance":"After a while, crocodile."},
+
+{"intent":"goodbye","utterance":"Stay out of trouble."},
+
+{"intent":"greeting","utterance":"Pos eisai?"},
+
+{"intent":"greeting","utterance":"Habari yako?"},
+
+{"intent":"greeting","utterance":"Come va?"},
+
+{"intent":"greeting","utterance":"Hey friend! What’s the latest buzz in your world?"},
+
+{"intent":"greeting","utterance":"Como voce esta?"},
+
+{"intent":"greeting","utterance":"What’s smokin’? Tell your pal everything!"},
+
+{"intent":"greeting","utterance":"What’s the word, hummingbird?"},
+
+{"intent":"greeting","utterance":"Hey Einstein, still cracking the old theory?"},
+
+{"intent":"greeting","utterance":"Namaste! How long has it been, dost?"},
+
+{"intent":"greeting","utterance":"How is life sailing?"},
+
+{"intent":"greeting","utterance":"Como estas?"},
+
+{"intent":"greeting","utterance":"Ua mai oe?"},
+
+{"intent":"greeting","utterance":"Hey bud! Mind if we catch up? I saw you like eons ago."},
+
+{"intent":"greeting","utterance":"Hi homey! How’s life treating you?"},
+
+{"intent":"greeting","utterance":"Hi, I just met you, and yes, this is crazy. Here’s my number – call me, maybe?"},
+
+{"intent":"greeting","utterance":"‘Sup, my homeslice?"},
+
+{"intent":"greeting","utterance":"How farest thou?"},
+
+{"intent":"greeting","utterance":"What’s up, buttercup?"},
+
+{"intent":"greeting","utterance":"Whazzup?"},
+
+{"intent":"greeting","utterance":"Wagwan?"},
+
+{"intent":"greeting","utterance":"Jal jinaess-eoyo?"},
+
+{"intent":"greeting","utterance":"Ni hao ma?"},
+
+{"intent":"greeting","utterance":"Comment allez-vous?"},
+
+{"intent":"greeting","utterance":"What’s good in the hood?"},
+
+{"intent":"greeting","utterance":"Sup!"},
+
+{"intent":"greeting","utterance":"How have you been, crazy coo?"},
+
+{"intent":"greeting","utterance":"How are things going, bandhu?"},
+
+{"intent":"greeting","utterance":"What’s sizzling?"},
+
+{"intent":"greeting","utterance":"Hey mistaa, how do you do?"},
+
+{"intent":"greeting","utterance":"Ogenki desu ka?"},
+
+{"intent":"greeting","utterance":"Whaccha up to, dude?"},
+
+{"intent":"greeting","utterance":"What’s new? Tell me everything!"},
+
+{"intent":"greeting","utterance":"Hello, babycakes! How are you?!"},
+
+{"intent":"greeting","utterance":"Bro, hey, how are you doing?"},
+
+{"intent":"greeting","utterance":"How are you doing, old man?"},
+
+{"intent":"greeting","utterance":"Yo man, where were you?"},
+
+{"intent":"greeting","utterance":"Hi, lost buddy! Long time no see!"},
+
+{"intent":"greeting","utterance":"Hey Slayer, what’s up?"},
+
+{"intent":"greeting","utterance":"Hey beautiful! I am blinded by your charm!"},
+
+{"intent":"greeting","utterance":"Hello, sugar. Come and give me a good morning hug."},
+
+{"intent":"greeting","utterance":"Welcome to the club, boss!"},
+
+{"intent":"greeting","utterance":"Hey homey! Welcome!"},
+
+{"intent":"greeting","utterance":"Waddup chica!"},
+
+{"intent":"greeting","utterance":"Hey, hiiii. How is your weekend going? Mine just got better 😉."},
+
+{"intent":"greeting","utterance":"Oooo la la. You are a gorgeous sculpture made by the God Almighty!"},
+
+{"intent":"greeting","utterance":"This is where my bae is at!"},
+
+{"intent":"greeting","utterance":"Hey there, little thing. You made my day by giving me a glimpse of yourself!"},
+
+{"intent":"greeting","utterance":"What’s up, handsome? You are making the temperatures soar this season!"},
+
+{"intent":"greeting","utterance":"Hey love!"},
+
+{"intent":"greeting","utterance":"Hi, butterfly! Holaaa!"},
+
+{"intent":"greeting","utterance":"Konnichiwa!"},
+
+{"intent":"greeting","utterance":"Hi, cutie pie, sugar bun!"},
+
+{"intent":"greeting","utterance":"Morning! So good to see ya, good looking!"},
+
+{"intent":"greeting","utterance":"What’s cookin’, good lookin’?"},
+
+{"intent":"greeting","utterance":"Hey, munchkin! Why so chweet?"},
+
+{"intent":"greeting","utterance":"Hello belle! You are glowing!"},
+
+{"intent":"greeting","utterance":"What’s up with you, old soul? Wanna chat?"},
+
+{"intent":"greeting","utterance":"Hello! There is my pumpkin! I miiiissed you <3"},
+
+{"intent":"greeting","utterance":"Ciao babydoll!"},
+
+{"intent":"greeting","utterance":"Bing bing! How’s it going?"},
+
+{"intent":"greeting","utterance":"Good day, young man!"},
+
+{"intent":"greeting","utterance":"Bonjour monsieur!"},
+
+{"intent":"greeting","utterance":"Hallo miss!"},
+
+{"intent":"greeting","utterance":"Hello there, daddycool!"},
+
+{"intent":"greeting","utterance":"Que pasa, madam!"},
+
+{"intent":"greeting","utterance":"Hola paapi!"},
+
+{"intent":"greeting","utterance":"Hey, boo. Wacch ya doing? You just brightened up my day!"},
+
+{"intent":"greeting","utterance":"Aloha princess!"},
+
+{"intent":"greeting","utterance":"Howdy, missus! How are ya?"},
+
+{"intent":"greeting","utterance":"How you doin’?"},
+
+{"intent":"greeting","utterance":"Hi, honey bunch!"},
+
+{"intent":"greeting","utterance":"I like your face. Are you an angel?"},
+
+{"intent":"greeting","utterance":"Yoooouhoooo! Toodle doo, toodle dum."},
+
+{"intent":"greeting","utterance":"Ello, matey. Wassup?"},
+
+{"intent":"greeting","utterance":"Hiiiii, baaaaaby!"},
+
+{"intent":"greeting","utterance":"Top of the morning to ya! Wass es going on?"},
+
+{"intent":"greeting","utterance":"Greetings and salutations, my man/woman!"},
+
+{"intent":"greeting","utterance":"Whaddup bro?"},
+
+{"intent":"greeting","utterance":"Yo! Wassup."},
+
+{"intent":"greeting","utterance":"Ghostbusters, watccha want?"},
+
+{"intent":"greeting","utterance":"Hello-hello! Who’s there? It’s me talking."},
+
+{"intent":"greeting","utterance":"Knock knock…"},
+
+{"intent":"greeting","utterance":"Hi! At least we meet for the first time for the last time!"},
+
+{"intent":"greeting","utterance":"I am Batman. Who are you, gorgeous?"},
+
+{"intent":"greeting","utterance":"Howdy, howdy, howdy, mister!"},
+
+{"intent":"greeting","utterance":"Tring tring…this call may or may not be recorded for training purposes."},
+
+{"intent":"greeting","utterance":"Wassup, homey?"},
+
+{"intent":"greeting","utterance":"GOOOOOD MORNING"},
+
+{"intent":"greeting","utterance":"What’s cracking, hot thing?"},
+
+{"intent":"greeting","utterance":"Hiya! Hi!"},
+
+{"intent":"greeting","utterance":"Hello, governor!"},
+
+{"intent":"greeting","utterance":"I come in peace! Chow chow."},
+
+{"intent":"greeting","utterance":"Hi, mister! What is going on?"},
+
+{"intent":"greeting","utterance":"Ahoy, matey!"},
+
+{"intent":"greeting","utterance":"Howdy, partner!"},
+
+{"intent":"greeting","utterance":"My name is aura and I am a bad, bad guy. I like you!"},
+
+{"intent":"greeting","utterance":"What’s kicking, little chicken?"},
+
+{"intent":"greeting","utterance":"Hey there, freshman! Wassup?"},
+
+{"intent":"greeting","utterance":"Howdy-doody! Tell me what’s new!"},
+
+{"intent":"greeting","utterance":"Hey, howdy, hi! How is it going?"},
+
+{"intent":"greeting","utterance":"Hello, sunshine! How are you? Oh, your rays are already making my day brighter!"},
+
+{"intent":"joke","utterance":"be funny "},
+
+{"intent":"joke","utterance":"tell me a joke"},
+
+{"intent":"joke","utterance":"tell me a funny line"},
+
+{"intent":"joke","utterance":"make me laugh"},
+
+{"intent":"ask_about_service","utterance":"i need a spa do you offer that"},
+
+{"intent":"ask_about_service","utterance":"can you do haircuts"},
+
 {"intent":"book_appointments_clear","utterance":"can i start over please"},
 
 {"intent":"book_appointments_clear","utterance":"lets start over"},

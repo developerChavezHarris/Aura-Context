@@ -24,6 +24,9 @@ class ConversationContext:
         if self.last_intent == 'book_appointments_confirm' and self.current_intent == 'yes':
             self.response['intent'] = 'book_appointments_confirmed'
 
+        if self.last_intent == 'book_appointments_confirmed' and self.current_intent == 'no':
+            self.response['intent'] = 'book_appointments_cancel'
+
         if self.current_intent == 'book_appointments_clear':
             self.response['intent'] = 'greeting'
             self.response['slots'] = []
