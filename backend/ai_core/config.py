@@ -18,6 +18,9 @@ svp_model_dir = os.path.join(base_dir, 'ai_core/svp/svp_models')
 svp_model_dir_core = os.path.join(base_dir, 'ai_core/svp')
 svp_model_json_file = os.path.join(svp_model_dir_core, 'json/ai_svps.json')
 
+# Slot mapper csv 
+slot_mapper_csv_file = os.path.join(base_dir, 'process/slot_mapper.csv')
+
 
 # DANGER, PATHS TO WIPE
 wipe_clf_model_path = os.path.join(clf_model_dir, 'clf_models')

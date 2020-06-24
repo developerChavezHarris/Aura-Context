@@ -3,6 +3,9 @@ import csv
 from nltk import word_tokenize
 import pickle
 from textblob.classifiers import NaiveBayesClassifier
+from ai_core import config
+
+slot_mapper_csv_file = 'slot_mapper.csv'
 
 
 class CollectUtterance:
@@ -71,20 +74,30 @@ class WordReplacer(object):
 
 
 class CsvWordReplacer(WordReplacer):
-    def __init__(self, filename):
+    def __init__(self, word, filename):
         word_map = {}
         for line in csv.reader(open(filename)):
             word, syn = line
             word_map[word] = syn
         super(CsvWordReplacer, self).__init__(word_map)
 
-
-def csv_word_replacer(words, filename):
+def csv_word_replacer(word, filename):
     words_lst = []
-    replacer = CsvWordReplacer(filename)
-    for word in words:
-        words_lst.append(replacer.replace(word))
+    replacer = CsvWordReplacer(word, filename)
+    # for word in words:
+    words_lst.append(replacer.replace(word))
     return words_lst
+
+
+# Takes a list of words as an argument
+# def csv_word_replacer(words, filename):
+#     words_lst = []
+#     replacer = CsvWordReplacer(filename)
+#     for word in words:
+#         words_lst.append(replacer.replace(word))
+#     return words_lst
+
+# Takes a single word as argument
 
 
 

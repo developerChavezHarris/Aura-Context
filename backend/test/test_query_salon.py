@@ -6,7 +6,7 @@ import re
 
 # Model imports
 
-from process.utterance import CollectUtterance, RemovePunctuation, SvmClassification, NbClassification
+from process.utterance import CollectUtterance, RemovePunctuation, SvmClassification, NbClassification, csv_word_replacer
 from process.character import RemoveRepeatedChars
 from process.word import LemmatizeWords, CheckSpelling, StopWords, Svps
 from context.context import UpdateContext
@@ -16,7 +16,6 @@ from context.salon_response_context import ConversationContext
 from context.salon_response_context import UpdateResponseContext
 from context.salon_response_context import GetResponse
 from context.salon_response_context import ClearContext
-
 
 from ai_core import config
 
@@ -34,6 +33,8 @@ svp_model_json_file = config.svp_model_json_file
 
 wipe_clf_model_path = config.wipe_clf_model_path
 wipe_svp_model_path = config.wipe_svp_model_path
+
+slot_mapper_csv_file = config.slot_mapper_csv_file
 
 last_intent = ''
 current_intent = ''
@@ -128,12 +129,6 @@ class TestQuery:
 
         utterance = ''.join(utterance)
 
-        # Look for synonyms
-        # words = csv_word_replacer(words, 'synonyms.csv')
-
-        # Get ner data from utterance
-        # Path to look 
-
         # Get time stamp
         now = datetime.now()
         time_stamp = datetime.timestamp(now)
@@ -158,14 +153,6 @@ class TestQuery:
                     "intent": final_intent,
                     "slots": svps,
                 }
-                UpdateResponseContext(response).update_response_context()
-                UpdateContext(response).update_context()
-                context = GetContext().get_context()
-                last_intent = get_last_intent()
-                current_intent = get_current_intent()
-                ConversationContext(current_intent, last_intent, response).maintain_context()
-                last_intent = GetLastIntent(context).get_last_intent()
-                update_last_intent(last_intent)
             else:
                 response = {
                 "time_stamp": time_stamp,
@@ -174,14 +161,6 @@ class TestQuery:
                 "intent": final_intent,
                 "slots": []
                 }
-                UpdateResponseContext(response).update_response_context()
-                UpdateContext(response).update_context()
-                context = GetContext().get_context()
-                last_intent = get_last_intent()
-                current_intent = get_current_intent()
-                ConversationContext(current_intent, last_intent, response).maintain_context()
-                last_intent = GetLastIntent(context).get_last_intent()
-                update_last_intent(last_intent)
         else:
             response = {
             "time_stamp": time_stamp,
@@ -189,19 +168,40 @@ class TestQuery:
             "utterance": utterance,
             "intent": final_intent,
             "slots": []
-        }
-            UpdateResponseContext(response).update_response_context()
-            UpdateContext(response).update_context()
-            context = GetContext().get_context()
-            last_intent = get_last_intent()
-            current_intent = get_current_intent()
-            ConversationContext(current_intent, last_intent, response).maintain_context()
-            last_intent = GetLastIntent(context).get_last_intent()
-            update_last_intent(last_intent)  
+        } 
 
-        # print(response)
+        # Look for synonyms
+        # words = csv_word_replacer(words, 'synonyms.csv')
 
+        # Post processing
+
+        UpdateResponseContext(response).update_response_context()
+        UpdateContext(response).update_context()
+        context = GetContext().get_context()
+        last_intent = get_last_intent()
+        current_intent = get_current_intent()
+        ConversationContext(current_intent, last_intent, response).maintain_context()
+        last_intent = GetLastIntent(context).get_last_intent()
+        update_last_intent(last_intent)
+        
         final_response = response
+
+        # Slot mapping for service
+        if response['intent'] == 'ask_about_service':
+            # try to slot map the service
+            service_slot = list(response['slots'])
+            service = service_slot[0]['value'][0]
+            before_service_map = service
+            # run the csv word replacer on the name of the service
+            word = csv_word_replacer(service, slot_mapper_csv_file)
+            after_service_map = word[0]
+
+            if before_service_map == after_service_map:
+                service_slot[0]['value'][0] = None
+            else:
+                service_slot[0]['value'][0] = after_service_map
+           
+            response['slots'] = service_slot
 
         return final_response   
         
