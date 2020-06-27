@@ -187,21 +187,26 @@ class TestQuery:
         final_response = response
 
         # Slot mapping for service
-        if response['intent'] == 'ask_about_service':
-            # try to slot map the service
-            service_slot = list(response['slots'])
-            service = service_slot[0]['value'][0]
-            before_service_map = service
-            # run the csv word replacer on the name of the service
-            word = csv_word_replacer(service, slot_mapper_csv_file)
-            after_service_map = word[0]
+        if len(response['slots']) > 0:
+            if response['intent'] == 'ask_about_service':
+                # try to slot map the service
+                service_slot = list(response['slots'])
+                # print(service_slot)
+                # service_slot = service_slot[0]['slot']
+                service = service_slot[0]['value'][0]
+                before_service_map = service
+                # run the csv word replacer on the name of the service
+                word = csv_word_replacer(service, slot_mapper_csv_file)
+                after_service_map = word[0]
 
-            if before_service_map == after_service_map:
-                service_slot[0]['value'][0] = None
-            else:
-                service_slot[0]['value'][0] = after_service_map
-           
-            response['slots'] = service_slot
+                if before_service_map == after_service_map:
+                    service_slot[0]['value'][0] = None
+                else:
+                    service_slot[0]['value'][0] = after_service_map
+            
+                response['slots'] = service_slot
+
+        # print(final_response)
 
         return final_response   
         

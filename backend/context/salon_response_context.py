@@ -78,6 +78,23 @@ def removeDuplicateSlots():
         if len(no_duplicate_slots) == 3:
             response['intent'] = 'book_appointments_confirm'
         response['slots'] = no_duplicate_slots
+        # determine remaining slots
+        if response['intent'] == 'book_appointment' or 'book_appointments_update':
+            slots_captured_lst = []
+            remaining_slots_to_be_captured = []
+            if len(no_duplicate_slots) < 3:
+                slots_captured = no_duplicate_slots
+                all_slots_lst = ['service', 'time', 'day']
+                for slot in slots_captured:
+                    for slot, value in slot.items():
+                        if value in all_slots_lst:
+                            slots_captured_lst.append(value)
+                        # remaining_slots_lst.append(v[0])
+                for slot in all_slots_lst:
+                    if slot not in slots_captured_lst:
+                        remaining_slots_to_be_captured.append(slot)
+                response.update({'remaining_slots': remaining_slots_to_be_captured})
+
         return response
 
 def get_response():
