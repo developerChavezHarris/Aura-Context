@@ -1,4 +1,16 @@
 [
+["so i need pedicure at maybe 5pm",{"entities":[[10,18,"service"],[28,31,"time"]]}],
+
+["hi good day angela can you book me in for wednesday at noon for a hair highlight",{"entities":[[42,51,"day"],[55,59,"time"],[66,80,"service"]]}],
+
+["i need a hair coloring",{"entities":[[9,22,"service"]]}],
+
+["let me have an appointment for 3pm this noon",{"entities":[[31,34,"time"]]}],
+
+["can we book a foot spa for sunday at about 4pm",{"entities":[[14,22,"service"],[27,33,"day"],[43,46,"time"]]}],
+
+["would you have any openings on thursday",{"entities":[[31,39,"day"]]}],
+
 ["i want to visit to have my hair done",{"entities":[[27,31,"service"]]}],
 
 ["can i get a manicure done at 2pm",{"entities":[[29,32,"time"],[12,20,"service"]]}],

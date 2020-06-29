@@ -12,6 +12,7 @@ class ConversationContext:
     def maintain_context(self):
         global response
         global slots_context
+
         if self.current_intent == 'book_appointments_update' or 'book_appointments':
             if len(self.response['slots']) > 0:
                 slots_in_response = self.response['slots'][0]
@@ -32,15 +33,23 @@ class ConversationContext:
             self.response['slots'] = []
             ClearContext().clear_context()
 
-        elif self.last_intent == 'ask_about_service' and self.current_intent == 'yes':
+        if self.last_intent == 'ask_about_service' and self.current_intent == 'yes':
             response_context_sorted = sorted(response_context, key = lambda i: i['time_stamp'], reverse=True)
             # print(sorted_response)
-            if len(self.response['slots']) > 0:
+            if len(response['slots']) > 0:
                 self.response['slots'] = response_context_sorted[1]['slots']
                 self.response['intent'] = 'book_appointments'
                 update_response(self.response)
                 new_response = removeDuplicateSlots()
                 return new_response
+
+        elif self.last_intent == 'ask_about_service' and self.current_intent == 'no':
+            response_context_sorted = sorted(response_context, key = lambda i: i['time_stamp'], reverse=True)
+            # print(sorted_response)
+            self.response['intent'] = 'book_appointments_cancel'
+            update_response(self.response)
+            new_response = removeDuplicateSlots()
+            return new_response
 
 # To move into its own separate files
 class UpdateResponseContext:

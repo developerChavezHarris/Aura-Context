@@ -266,11 +266,35 @@ class FeedIntentsView(APIView):
                     os.mkdir(path)
                     with open(clf_model_update_intents_json_file, 'w') as f:
                         f.write(intent_data)
+                    # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                    temp_list = []
+                    with open(clf_model_update_intents_json_file, "r+") as jsonFile:
+                        data = json.load(jsonFile)
+                        for temp in data:
+                            dict_temp = {}
+                            dict_temp.update({'text': temp['utterance'], 'label': temp['intent']})
+                            temp_list.append(dict_temp)
+                        jsonFile.seek(0)  # rewind
+                        json.dump(temp_list, jsonFile)
+                        jsonFile.truncate()
+
+
                 else:
                     shutil.rmtree(path)
                     os.mkdir(path)
                     with open(clf_model_update_intents_json_file, 'w') as f:
                         f.write(intent_data)
+                    # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                    temp_list = []
+                    with open(clf_model_update_intents_json_file, "r+") as jsonFile:
+                        data = json.load(jsonFile)
+                        for temp in data:
+                            dict_temp = {}
+                            dict_temp.update({'text': temp['utterance'], 'label': temp['intent']})
+                            temp_list.append(dict_temp)
+                        jsonFile.seek(0)  # rewind
+                        json.dump(temp_list, jsonFile)
+                        jsonFile.truncate()
 
             else: 
                 with open(clf_model_root_intents_json_file, 'w') as f:
@@ -303,6 +327,7 @@ class FeedUpdateSenseView(APIView):
                 os.mkdir(path)
                 with open(update_sense_json_file, 'w') as f:
                     f.write(update_sense_data)
+                
             else:
                 shutil.rmtree(path)
                 os.mkdir(path)

@@ -54,6 +54,9 @@ class TrainSvpModel:
             os.mkdir(intent_path)
 
             svp_model_output_path = os.path.join(svp_model_dir, intent)
+            # Without the init.py file, spacy will throw an error in locating the meta.json file
+            init_py_file = os.path.join(svp_model_output_path, '__init__.py')
+            with open(init_py_file, mode='a'): pass
 
             @plac.annotations(
                 model=("model. Defaults to blank 'en' model.", "option", "m", str),

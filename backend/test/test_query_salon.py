@@ -7,7 +7,7 @@ import re
 # Model imports
 
 from process.utterance import CollectUtterance, RemovePunctuation, SvmClassification, NbClassification, csv_word_replacer
-from process.character import RemoveRepeatedChars
+# from process.character import RemoveRepeatedChars
 from process.word import LemmatizeWords, CheckSpelling, StopWords, Svps
 from context.context import UpdateContext
 from context.context import GetContext
@@ -125,7 +125,7 @@ class TestQuery:
             update_current_intent(intent)
 
         #  Remove repeated characters
-        utterance = (RemoveRepeatedChars(utterance).remove_repeated_chars())
+        # utterance = (RemoveRepeatedChars(utterance).remove_repeated_chars())
 
         utterance = ''.join(utterance)
 
