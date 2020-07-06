@@ -1,4 +1,12 @@
 [
+["hey lets set up that haircut i always needed",{"entities":[[21,28,"service"]]}],
+
+["its been a while since i got my nails done now i wanna do it again",{"entities":[[32,37,"service"]]}],
+
+["i think i might need a haircut appointment",{"entities":[[23,30,"service"]]}],
+
+["i would love to book a nice spa",{"entities":[[28,31,"service"]]}],
+
 ["so i need pedicure at maybe 5pm",{"entities":[[10,18,"service"],[28,31,"time"]]}],
 
 ["hi good day angela can you book me in for wednesday at noon for a hair highlight",{"entities":[[42,51,"day"],[55,59,"time"],[66,80,"service"]]}],

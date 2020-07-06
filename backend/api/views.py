@@ -22,7 +22,7 @@ from .models import Svp
 from .models import Bot
 
 # custom imports
-from test.test_query_salon import TestQuery
+from test.test_query import TestQuery
 from train.train_models import TrainClassifierModel
 from train.train_models import TrainSvpModel
 from train.train_models import TrainUpdateSenseClassifierModel
