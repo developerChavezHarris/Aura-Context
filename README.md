@@ -1,4 +1,4 @@
-(Aura) Beta Version 1.8
+(Aura) Beta Version 3.8 - Aura Now has the ability to maintain conversational context in this current release.
 
 ## Introduction
 
