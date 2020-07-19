@@ -1,4 +1,6 @@
 [
+["let set the time to 2pm",{"entities":[[20,23,"time"]]}],
+
 ["lets do thursday at 4pm",{"entities":[[8,16,"day"],[20,23,"time"]]}],
 
 ["can you set it for 10 on saturday",{"entities":[[19,21,"time"],[25,33,"day"]]}],
